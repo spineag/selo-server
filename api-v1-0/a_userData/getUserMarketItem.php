@@ -7,29 +7,23 @@ const TIME_GAP = 5 * 60 * 60;
 if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
     $app = Application::getInstance();
     $channelId = (int)$_POST['channelId'];
+    $mainDb = $app->getMainDb($channelId);
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
-        $mainDb = $app->getMainDb($channelId);
         $userId = filter_var($_POST['userId']);
         try {
             $resp = [];
-            $result = $mainDb->query("SELECT id, market_cell FROM users WHERE social_id =".$_POST['userSocialId']);
+            $uid = $app->getUserId($channelId, $_POST['userSocialId']);
+            $shardDb = $app->getShardDb($uid , $channelId);
+            $result = $shardDb->query("SELECT market_cell FROM user_info WHERE user_id =".$uid);
             $arr = $result->fetch();
-            if (!$arr || !$arr['id']) {
-                $json_data['id'] = 14;
-                $json_data['status'] = 's...';
-                $json_data['message'] = 'no user for this userSocialId';
-                echo json_encode($json_data);
-            }
-            $idU = $arr['id'];
             $response['market_cell'] = $arr['market_cell'];
             $time = time() - TIME_GAP;
 
-            $shardDb = $app->getShardDb($idU , $channelId);
-            $result = $shardDb->query("UPDATE user_market_item SET in_papper=0, time_in_papper = 0 WHERE user_id = ". $idU . "
+            $result = $shardDb->query("UPDATE user_market_item SET in_papper=0, time_in_papper = 0 WHERE user_id = ". $uid . "
             AND in_papper = 1 AND time_in_papper < " . $time);
 
-            $result = $shardDb->query("SELECT * FROM user_market_item WHERE user_id =" . $idU);
+            $result = $shardDb->query("SELECT * FROM user_market_item WHERE user_id =" . $uid);
             $res = $result->fetchAll();
             foreach ($res as $value => $d) {
                 if ((int)$d['buyer_id'] > 0) {

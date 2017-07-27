@@ -9,7 +9,7 @@ $mainDb = $app->getMainDb($channelId);
 
 $ids = $_POST['ids'];
 
-$result = $mainDb->query("SELECT id,social_id,name,last_name,photo_url FROM users WHERE social_id IN (".$ids.")");
+$result = $mainDb->query("SELECT id,social_id,first_name,last_name,photo_url FROM users WHERE social_id IN (".$ids.")");
 $arr = $result->fetchAll();
 $resp = [];
 if ($arr) {

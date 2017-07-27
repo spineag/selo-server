@@ -38,7 +38,7 @@ try {
     array_splice($partyALL, 20);
     $resp = [];
     foreach ($partyALL as $key => $party) {
-        $result2 = $mainDb->query('SELECT level, name, last_name, social_id FROM users WHERE id =' . $party['user_id']);
+        $result2 = $mainDb->query('SELECT level, first_name, last_name, social_id FROM users WHERE id =' . $party['user_id']);
         $partyTWO = $result2->fetch();
         $res = [];
         $res['id'] = $party['id'];
