@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/App
 
 if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) { 
     $app = Application::getInstance();
-    $channelId = (int)$_POST['channelId'];
+    $channelId = 4; // (int)$_POST['channelId'];
 
     $lang = 0;
     $userId = $app->getUserId($channelId, $_POST['userSocialId']);
