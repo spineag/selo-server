@@ -1,0 +1,115 @@
+
+body {
+    margin: 0;
+}
+::selection {
+    background: transparent;
+}
+
+#line1px {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #ffc801;
+    height: 1px;
+}
+
+#gameContainer {
+    margin: 0 auto;
+    padding: 0;
+    height: 640px;
+}
+
+#flash_container {
+    margin: 0 auto;
+}
+
+#loader {
+    background: #fff;
+    width: 1000px;
+    height: 640px;
+    line-height: 640px;
+    text-align: center;
+}
+img {
+    border: 0;
+}
+#no_player {
+    display: none;
+    padding-top: 0;
+    height: 0;
+}
+
+nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_top.png) ;
+    background-repeat: no-repeat;
+    height: 36px;
+    text-align: center;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 1000px;
+}
+li {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+}
+li:last-child {
+    margin-right: 0;
+}
+a {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.one {
+    width: 136px;
+    height: 24px;
+    margin: 12px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_1.png);
+    background-repeat: no-repeat;
+}
+.one:hover {
+    background-image: url(/images/iframe/iframe_bt_1_over.png);
+}
+.two {
+    width: 91px;
+    height: 24px;
+    margin: 12px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_3.png);
+    background-repeat: no-repeat;
+}
+.two:hover {
+    background-image: url(/images/iframe/iframe_bt_3_over.png);
+}
+.three {
+    width: 91px;
+    height: 24px;
+    margin: 12px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_2.png);
+    background-repeat: no-repeat;
+}
+.three:hover {
+    background-image: url(/images/iframe/iframe_bt_2_over.png);
+}
+.four {
+    width: 67px;
+    height: 24px;
+    margin: 12px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_4.png);
+    background-repeat: no-repeat;
+}
+.four:hover {
+    background-image: url(/images/iframe/iframe_bt_4_over.png);
+}

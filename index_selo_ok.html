@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">-->
+    <title>Умелые лапки</title>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="//api.ok.ru/js/fapi5.js"></script>
+    <script type="text/javascript" src="/js/swfobject.js"></script>
+    <script type="text/javascript" src="/js/FarmNinjaOK.js"></script>
+    <script type="text/javascript" src="/js/Main_ok.js"></script>
+    <script type="text/javascript">
+        var sn = new SN(3);
+    </script>
+
+    <link type="text/css" href="/css/Main.css" rel="stylesheet"/>
+
+    <script>
+        function initGA() {
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+            ga.l = +new Date;
+            ga('create', 'UA-78805451-2', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+    <script async src='//www.google-analytics.com/analytics.js' onload='initGA()'></script>
+
+    <script> function getProfile(userSocialId, params) {  sn.getProfile(userSocialId, params); }  </script>
+    <script> function getAllFriends(userSocialId) { sn.getAllFriends(userSocialId); }  </script>
+    <script> function getUsersInfo(uids, params) { sn.getUsersInfo(uids, params); }  </script>
+    <script> function getFriendsByIds(uids, params) { sn.getFriendsByIds(uids, params); }  </script>
+    <script> function getAppUsers(userSocialId) { sn.getAppUsers(userSocialId); }  </script>
+    <script> function showInviteWindowAll() { sn.showInviteWindowAll(); }  </script>
+    <script> function makePayment(txt, txt2, id, price) { sn.showPayment(txt, txt2, id, price); }  </script>
+    <script> function makeWallPost(uid, message, url) { sn.makeWallPost(uid, message, url); }  </script>
+    <script> function getTempUsersInfoById(uids, params) { sn.getTempUsersInfoById(uids, params); }  </script>
+    <script> function isInGroup(groupId, userId) { sn.isInGroup(groupId, userId); }  </script>
+    <script> function reloadGame() { FarmNinjaOK.reload(); }  </script>
+
+</head>
+
+<body>
+<div id="main_div" style="width:100%;">
+    <nav style="width:1000px; margin:auto">
+        <ul>
+            <li><a href="#" class="one" onclick = 'sn.showInviteWindowAll();'></a></li>
+            <li><a href="https://www.ok.ru/group/55141755191315" class="two" target="_blank"></a></li>
+            <li><a href="https://www.ok.ru/group/55141755191315/topic/66119264865043" class="three" target="_blank"></a></li>
+            <li><a href="https://www.ok.ru/group/55141755191315/topic/66119413369619" class="four" target="_blank"></a></li>
+        </ul>
+    </nav>
+    <div id="line1px"></div>
+
+    <div id="gameContainer">
+        <div id="flash_container">
+            <div id="loader">
+                <img src="/images/ajax-loader.gif"/>
+            </div>
+            <div id="no_player">
+                <a target="_blank" href="http://www.adobe.com/go/getflashplayer">
+                    <img src="https://505.ninja/images/up_flash.jpg" alt="Get Adobe Flash player" />
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+<script>
+    FarmNinjaOK.initOK();
+</script>
+</body>
+</html>

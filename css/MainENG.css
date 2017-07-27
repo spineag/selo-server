@@ -1,0 +1,191 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    border:0;
+}
+
+#main-div {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Hides scrollbar in IE */
+}
+
+::selection {
+    background: transparent;
+}
+
+#gameContainer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#flash_container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#loader {
+    background: #fff;
+    /*width: 1000px;*/
+    /*height: 640px;*/
+    height: 100%;
+    width: 100%;
+    /*line-height: 640px;*/
+    text-align: center;
+}
+img {
+    border: 0;
+}
+#no_player {
+    height: 100%;
+    width: 100%;
+    display: none;
+    padding-top: 0;
+}
+
+nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 28px;
+    text-align: center;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 1000px;
+}
+.ru {
+    display: none;
+}
+li {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+}
+li:last-child {
+    margin-right: 0;
+}
+a {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.one {
+    width: 136px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_1.png);
+    background-repeat: no-repeat;
+}
+.one:hover {
+    background-image: url(/images/iframe/iframe_bt_1_over.png);
+}
+.two {
+    width: 91px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_3.png);
+    background-repeat: no-repeat;
+}
+.two:hover {
+    background-image: url(/images/iframe/iframe_bt_3_over.png);
+}
+.three {
+    width: 91px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/iframe_bt_2.png);
+    background-repeat: no-repeat;
+}
+.three:hover {
+    background-image: url(/images/iframe/iframe_bt_2_over.png);
+}
+.lang {
+    display: none;
+    width: 35px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/rusp_bt_eng.png);
+    background-repeat: no-repeat;
+}
+.lang:hover {
+    background-image: url(/images/iframe/rusp_bt_eng_over.png);
+}
+
+.oneENG {
+    width: 107px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/invite_friends_bt_eng.png);
+    background-repeat: no-repeat;
+}
+.oneENG:hover {
+    background-image: url(/images/iframe/invite_friends_bt_eng_over.png);
+}
+.twoENG {
+    width: 80px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/fan_page_bt_eng.png);
+    background-repeat: no-repeat;
+}
+.twoENG:hover {
+    background-image: url(/images/iframe/fan_page_bt_eng_over.png);
+}
+.threeENG {
+    width: 67px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/support_bt_eng.png);
+    background-repeat: no-repeat;
+}
+.threeENG:hover {
+    background-image: url(/images/iframe/support_bt_eng_over.png);
+}
+.langENG {
+    display: none;
+    width: 35px;
+    height: 24px;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background-image: url(/images/iframe/engp_bt_eng.png);
+    background-repeat: no-repeat;
+}
+.langENG:hover {
+    background-image: url(/images/iframe/engp_bt_eng_over.png);
+}
+
+button {
+    width: 260px;
+    height: 90px;
+    border-radius: 5px;
+    background-color: #0083fe;
+}
+
+button :hover {
+    background-color: #00b7fe;
+}

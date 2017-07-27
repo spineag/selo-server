@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">-->
+    <title>Умелые лапки</title>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/selo-project/js/swfobject.js"></script>
+    <script type="text/javascript" src="/selo-project/js/SeloNinjaFB.js"></script>
+    <script type="text/javascript" src="/selo-project/js/MainSelo_fb.js"></script>
+    <script type="text/javascript">
+        var sn = new SN(4);
+    </script>
+
+    <link type="text/css" href="/selo-project/css/MainENG.css" rel="stylesheet"/>
+
+    <script>
+        function initGA() {
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+            ga.l = +new Date;
+            ga('create', 'UA-78805451-3', 'auto'); // need change for it's own!
+            ga('send', 'pageview');
+        }
+    </script>
+    <script async src='//www.google-analytics.com/analytics.js' onload='initGA()'></script>
+
+    <script> function getProfile(userSocialId) {  sn.getProfile(userSocialId); }  </script>
+    <script> function getAllFriends(userSocialId) { sn.getAllFriends(userSocialId); }  </script>
+    <script> function getFriendsByIds(uids) { sn.getFriendsByIds(uids); }  </script>
+    <script> function getAppUsers(userSocialId) { sn.getAppUsers(userSocialId); }  </script>
+    <script> function showInviteWindowAll(lang) {
+        lang = typeof lang !== 'undefined' ?  lang : 2;
+        sn.showInviteWindowAll(lang); }  </script>
+    <script> function showInviteWindowViral() { sn.showInviteWindowViral(); }  </script>
+    <script> function makeWallPost(uid, message, url) { sn.makeWallPost(uid, message, url); }  </script>
+    <script> function getTempUsersInfoById(uids) { sn.getTempUsersInfoById(uids); }  </script>
+    <script> function isInGroup(groupId, userId) { sn.isInGroup(groupId, userId); }  </script>
+    <script> function checkUserLanguageForIFrame(userSocialId) { SeloNinjaFB.checkUserLanguageForIFrame(userSocialId); }  </script>
+    <script> function reloadGame() { SeloNinjaFB.reload(); }  </script>
+    <script> function hideLanguage() { SeloNinjaFB.hideLanguage(); }  </script>
+    <script> function makePayment(packId, userSocialId) { sn.makePayment(packId, userSocialId); }  </script>
+
+</head>
+
+<body class="game_body">
+<div id="main_div">
+    <nav style="width:1000px; margin:auto">
+        <div class = "ru">
+            <ul>
+                <li><a href="#" class="one" onclick = 'sn.showInviteWindowAll();'></a></li>
+                <li><a href="https://www.facebook.com/" class="two" target="_blank"></a></li>
+                <li><a href="https://www.facebook.com/" class="three" target="_blank"></a></li>
+                <li><a class="lang" onclick = 'SeloNinjaFB.showLanguage();'></a></li>
+            </ul>
+        </div>
+        <div class = "eng">
+            <ul>
+                <li><a href="#" class="oneENG" onclick = 'sn.showInviteWindowAll();'></a></li>
+                <li><a href="https://www.facebook.com/" class="twoENG" target="_blank"></a></li>
+                <li><a href="https://www.facebook.com/" class="threeENG" target="_blank"></a></li>
+                <li><a class="langENG" onclick = 'SeloNinjaFB.showLanguage();'></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="gameContainer">
+        <div id="flash_container">
+            <div id="loader">
+                <img src="/images/ajax-loader.gif"/>
+            </div>
+            <div id="no_player">
+                <a target="_blank" href="http://www.adobe.com/go/getflashplayer">
+                    <img src="https://505.ninja/images/up_flash.jpg" alt="Get Adobe Flash player" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="change_language" style="z-index: 3; position: absolute; left: 50%; top: 150px; display: none">
+        <div style="width:300px; height: 230px; background-color: #50b604; position: relative; left: -50%; border-radius: 5px; border-style: solid; border-width: 3px; border-color: #ffc000">
+            <p style="text-align: center;"><button onclick="FarmNinjaFB.chooseLanguage(2)">
+                <img src="/images/iframe/eng_f.png" style="vertical-align: middle">
+                <h2 style="margin-left: 10px; color: white">Play in English</h2></button></p>
+            <p style="text-align: center;"><button onclick="FarmNinjaFB.chooseLanguage(1)">
+                <img src="/images/iframe/ru_f.png" style="vertical-align: middle">
+                <h2 style="margin-left: 10px; color: white">Играть на русском языке</h2></button></p>
+        </div>>
+    </div>
+
+
+</div>
+<script>
+//    FarmNinjaFB.getVersion();
+</script>
+</body>
+</html>
