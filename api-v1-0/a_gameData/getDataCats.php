@@ -12,7 +12,7 @@ $memcache = $app->getMemcache();
 
 
 try {
-    $resp = $memcache->get('getDataCats3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataCats3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT * FROM data_cat");
         if ($result) {
@@ -36,7 +36,7 @@ try {
             $json_data['status'] = 's285';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataCats3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataCats3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
 
     $json_data['message'] = $resp;

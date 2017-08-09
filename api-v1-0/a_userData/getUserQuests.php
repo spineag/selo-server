@@ -9,7 +9,6 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $channelId = (int)$_POST['channelId'];
     $shardDb = $app->getShardDb($userId, $channelId);
     $mainDb = $app->getMainDb($channelId);
-    $memcache = $app->getMemcache();
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
         $m = md5($_POST['userId'].$app->md5Secret());

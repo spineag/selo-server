@@ -17,7 +17,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $resp = $memcache->get('getDataRecipe3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataRecipe3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT * FROM data_recipe");
         if ($result) {
@@ -37,7 +37,7 @@ try {
             $json_data['status'] = 's292';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataRecipe3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataRecipe3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
 
     $json_data['message'] = $resp;

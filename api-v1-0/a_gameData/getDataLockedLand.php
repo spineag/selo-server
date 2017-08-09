@@ -17,7 +17,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $lands = $memcache->get('getDataLockedLand'.$channelId);
+    $lands = $memcache->get('selo'.'getDataLockedLand'.$channelId);
     if (!$lands) {
         $result = $mainDb->query("SELECT * FROM data_locked_land");
         if ($result) {
@@ -27,7 +27,7 @@ try {
             $json_data['status'] = 's288';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataLockedLand'.$channelId, $lands, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataLockedLand'.$channelId, $lands, MEMCACHED_DICT_TIME);
     }
     $resp = [];
     if (!empty($lands)) {

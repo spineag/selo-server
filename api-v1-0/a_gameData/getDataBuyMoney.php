@@ -17,7 +17,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $resp = $memcache->get('getDataBuyMoney3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataBuyMoney3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT * FROM data_buy_money");
         if ($result) {
@@ -37,7 +37,7 @@ try {
             $json_data['status'] = 's283';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataBuyMoney3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataBuyMoney3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
 
     $json_data['message'] = $resp;

@@ -52,7 +52,7 @@ class Application
     final public function getShardDb($uid, $channelId) {
         $memcached = $this->getMemcache();
         $shardKey = $channelId."shard_".$uid;
-        $dbCfgShard = $memcached->get($shardKey);
+        $dbCfgShard = $memcached->get('selo'.$shardKey);
         if (empty($dbCfgShard)) {
             $mainDb = $this->getMainDb($channelId);
             $res = $mainDb->query("SELECT shard_id, host, user, password as pass, db_name as `database`, active FROM game_shard WHERE first_user_id <='".$uid."' AND last_user_id >='".$uid."'");
@@ -61,7 +61,7 @@ class Application
                 $result = $mainDb->query('UPDATE game_shard SET active=1 WHERE shard_id='.(int)$res['shard_id']);
             }
             $time_out = 5 * 60;
-            $memcached->set($shardKey, $dbCfgShard, $time_out);
+            $memcached->set('selo'.$shardKey, $dbCfgShard, $time_out);
         }
 
         if (!empty($dbCfgShard)) {
@@ -248,14 +248,14 @@ class Application
 
     final public function checkSessionKey($userId, $sessionKey, $channelId = 2) {
         $memcache = $this->getMemcache();
-        $sess = $memcache->get((string)$userId.'ch'.$channelId);
+        $sess = $memcache->get('selo'.(string)$userId.'ch'.$channelId);
         if (!$sess) {
             $mainDb = $this->getMainDb($channelId);
             $result = $mainDb->query("SELECT session_key FROM users WHERE id=" . $userId);
             $arr = $result->fetch();
             if (!$arr) return true;
             $sess = $arr['session_key'];
-            $memcache->set((string)$userId.'ch'.$channelId, (string)$sess, MEMCACHED_DICT_TIME);
+            $memcache->set('selo'.(string)$userId.'ch'.$channelId, (string)$sess, MEMCACHED_DICT_TIME);
         }
         if ((string)$sessionKey == (string)$sess || (string)$sess == '0') {
             return true;

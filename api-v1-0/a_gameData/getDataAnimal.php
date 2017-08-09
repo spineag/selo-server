@@ -17,7 +17,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $resp = $memcache->get('getDataAnimal3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataAnimal3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT * FROM data_animal");
         if ($result) {
@@ -52,7 +52,7 @@ try {
             $json_data['status'] = 's260';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataAnimal3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataAnimal3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
     $json_data['message'] = $resp;
     echo json_encode($json_data);

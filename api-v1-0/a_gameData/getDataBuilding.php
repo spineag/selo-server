@@ -11,7 +11,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $resp = $memcache->get('getDataBuilding3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataBuilding3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT * FROM building");
         if ($result) {
@@ -371,7 +371,7 @@ try {
             $json_data['status'] = 's281';
             throw new Exception("Bad request to DB!");
         }
-        $memcache->set('getDataBuilding3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataBuilding3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
 
     $json_data['message'] = $resp;

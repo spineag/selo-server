@@ -62,7 +62,7 @@ if (isset($_POST['idSocial']) && !empty($_POST['idSocial'])) {
             $json_data['message'] = $e->getMessage();
             echo json_encode($json_data);
         }
-        $memcache->set((string)$uid.'ch'.$channelId, (string)$sess, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.(string)$uid.'ch'.$channelId, (string)$sess, MEMCACHED_DICT_TIME);
         
         $json_data['message'] = $uid;
         echo json_encode($json_data);

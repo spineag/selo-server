@@ -11,7 +11,7 @@ $mainDb = $app->getMainDb($channelId);
 $memcache = $app->getMemcache();
 
 try {
-    $resp = $memcache->get('getDataOutGameTiles3'.$channelId);
+    $resp = $memcache->get('selo'.'getDataOutGameTiles3'.$channelId);
     if (!$resp) {
         $result = $mainDb->query("SELECT pos_x, pos_y FROM data_outgame_tile");
         if ($result) {
@@ -27,7 +27,7 @@ try {
                 $resp[] = $tile;
             }
         }
-        $memcache->set('getDataOutGameTiles3'.$channelId, $resp, MEMCACHED_DICT_TIME);
+        $memcache->set('selo'.'getDataOutGameTiles3'.$channelId, $resp, MEMCACHED_DICT_TIME);
     }
 
     $json_data['message'] = $resp;

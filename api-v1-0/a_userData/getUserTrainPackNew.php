@@ -7,7 +7,6 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
     $app = Application::getInstance();
     $channelId = (int)$_POST['channelId'];
     $mainDb = $app->getMainDb($channelId);
-    $memcache = $app->getMemcache();
 
     $result = $mainDb->query("SELECT * FROM users WHERE social_id =".$_POST['userSocialId']);
     $arr = $result->fetch();

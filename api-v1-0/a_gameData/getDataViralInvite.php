@@ -9,12 +9,12 @@ $memcache = $app->getMemcache();
 $mainDb = $app->getMainDb($channelId);
 
 try {
-    $res = $memcache->get('getDataViralInvite'.$channelId);
+    $res = $memcache->get('selo'.'getDataViralInvite'.$channelId);
     if (!$res) {
         $result = $mainDb->query("SELECT * FROM data_invite_viral");
         if ($result) {
             $res = $result->fetch();
-            $memcache->set('getDataViralInvite'.$channelId, $res, MEMCACHED_DICT_TIME);
+            $memcache->set('selo'.'getDataViralInvite'.$channelId, $res, MEMCACHED_DICT_TIME);
         } else {
             $json_data['id'] = 2;
             $json_data['status'] = 's...';

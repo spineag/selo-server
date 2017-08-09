@@ -9,12 +9,12 @@ $memcache = $app->getMemcache();
 $mainDb = $app->getMainDb($channelId);
 
 try {
-    $res = $memcache->get('getDataStock'.$channelId);
+    $res = $memcache->get('selo'.'getDataStock'.$channelId);
     if (!$res) {
         $result = $mainDb->query("SELECT * FROM data_stock");
         if ($result) {
             $res = $result->fetch();
-            $memcache->set('getDataStock'.$channelId, $res, MEMCACHED_DICT_TIME);
+            $memcache->set('selo'.'getDataStock'.$channelId, $res, MEMCACHED_DICT_TIME);
         } else {
             $json_data['id'] = 2;
             $json_data['status'] = 's307';
