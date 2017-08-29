@@ -173,13 +173,19 @@ class Application
             $resultRidge = $shardDb->insert('user_building',
                 ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 25, 'pos_y' => 33, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
+            $resultRidge = $shardDb->insert('user_building',
+                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 21, 'pos_y' => 35, 'is_flip' => 0, 'count_cell' => 0],
+                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
+            $resultRidge = $shardDb->insert('user_building',
+                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 23, 'pos_y' => 35, 'is_flip' => 0, 'count_cell' => 0],
+                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
+            $resultRidge = $shardDb->insert('user_building',
+                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 25, 'pos_y' => 35, 'is_flip' => 0, 'count_cell' => 0],
+                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultRidge = $shardDb->query("SELECT * FROM user_building WHERE building_id = 11 AND user_id =".$userId);
             if ($resultRidge) {
                 $arr = $resultRidge->fetchAll();
                 foreach ($arr as $value => $dict) { 
-                    // $result = $mainDb->insert('user_building_open',
-                    //     ['user_id' => $userId, 'building_id' => 11, 'user_db_building_id' => $dict['id'], 'data_start_build' => time(), 'is_open' => 1],
-                    //     ['int', 'int', 'int', 'int', 'int']);
                     $result = $shardDb->insert('user_plant_ridge',
                         ['user_id' => $userId, 'plant_id' => 31, 'user_db_building_id' => $dict['id'], 'time_start' => time()-12000],
                         ['int', 'int', 'int', 'int']);

@@ -52,7 +52,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $ids = [];
                     foreach ($quests as $value => $dict) {
                         $ids[] = $dict['id'];
-                        $result = $shardDb->queryWithAnswerId('INSERT INTO user_quest SET user_id='.$userId.', quest_id='.$dict['id'].', date_start='.$time.', date_finish=0, is_done=0, get_award=0, is_out_date=0');
+                        $result = $shardDb->queryWithAnswerId_withoutDie('INSERT INTO user_quest SET user_id='.$userId.', quest_id='.$dict['id'].', date_start='.$time.', date_finish=0, is_done=0, get_award=0, is_out_date=0');
                         $q = [];
                         $q['id'] = $result[1];
                         $q['quest_id'] = $dict['id'];
@@ -65,7 +65,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $result =  $mainDb->query("SELECT * FROM quest_task WHERE quest_id IN (".$ar.") ");
                     $tasks = $result->fetchAll();
                     foreach ($tasks as $value => $dict) {
-                        $result = $shardDb->queryWithAnswerId('INSERT INTO user_quest_task SET user_id='.$userId.', task_id = '.$dict["id"].', quest_id='.$dict["quest_id"].', count_done=0, is_done=0');
+                        $result = $shardDb->queryWithAnswerId_withoutDie('INSERT INTO user_quest_task SET user_id='.$userId.', task_id = '.$dict["id"].', quest_id='.$dict["quest_id"].', count_done=0, is_done=0');
                         $t = [];
                         $t['id'] = $result[1];
                         $t['task_id'] = $dict['id'];

@@ -301,6 +301,29 @@ class OwnMySQLI
         return [new DBStatementI($result), mysqli_insert_id($this->_linkIdentifier)];
     }
 
+    public function queryWithAnswerId_withoutDie($query)
+    {
+        mysqli_select_db($this->_linkIdentifier, $this->_database);
+        if (static::$_debug)
+        {
+            echo $query . "<br />\n";
+        }
+        $result = mysqli_query($this->_linkIdentifier, $query);
+        if($result === false)
+        {
+            mysqli_close($this->_linkIdentifier);
+            @$this->_connections[$this->_params['key']] = $this->_linkIdentifier = mysqli_connect("p:".$this->_params['host'], $this->_params['user'], $this->_params['pass']);
+            mysqli_select_db($this->_linkIdentifier, $this->_params['database']);
+
+            $result = mysqli_query($this->_linkIdentifier, $query);
+
+            if($result === false) {
+                return [new DBStatementI($result), "Query:<i> ".$query."</i> ".mysqli_error($this->_linkIdentifier)];
+            }
+        }
+        return [new DBStatementI($result), mysqli_insert_id($this->_linkIdentifier)];
+    }
+
     public function select($from, $cols = '*', $where = [], $wheretypes = [], $orderBy = '', $limit = '', $like = false, $operand = 'AND')
     {
         $query = "SELECT {$cols} FROM `{$from}` WHERE ";

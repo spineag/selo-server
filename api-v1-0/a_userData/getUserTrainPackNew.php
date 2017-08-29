@@ -30,15 +30,15 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
             if (!$isGood) {
                 $result = $shardDb->query('DELETE FROM user_train_pack WHERE user_id='.$userId);
                 $result = $shardDb->query('DELETE FROM user_train_pack_item WHERE user_id='.$userId);
-                $arrDataTrainResource = [];
-                $arrIds = [];
-                $result = $mainDb->query("SELECT resource_id, big_count, small_count FROM data_train_resource");
-                $arrDataTrainResource = $result->fetchAll();
-                for ($i=0; $i<count($arrDataTrainResource); $i++) {
-                    $arrIds[] = (int)$arrDataTrainResource[$i]['resource_id'];
-                };
+//                $arrDataTrainResource = [];
+//                $arrIds = [];
+//                $result = $mainDb->query("SELECT resource_id, big_count, small_count FROM data_train_resource");
+//                $arrDataTrainResource = $result->fetchAll();
+//                for ($i=0; $i<count($arrDataTrainResource); $i++) {
+//                    $arrIds[] = (int)$arrDataTrainResource[$i]['resource_id'];
+//                };
 
-                $result = $mainDb->query("SELECT id, order_price, order_xp FROM resource WHERE block_by_level <=".$userLevel." AND id IN (" .implode(',', array_map('intval', $arrIds)). ") ORDER BY RAND() LIMIT 3");
+                $result = $mainDb->query("SELECT id, order_price, order_xp, train_count_min, train_count_max FROM resource WHERE block_by_level <=".$userLevel." AND train_count_max>0 ORDER BY RAND() LIMIT 3");
                 $dataResource = $result->fetchAll();
                 $arr = [];
                 for ($i=0; $i<3; $i++) {
@@ -46,6 +46,8 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                     $arrInfo['id'] = (int)$dataResource[$i]['id'];
                     $arrInfo['order_price'] = (int)$dataResource[$i]['order_price'];
                     $arrInfo['order_xp'] = (int)$dataResource[$i]['order_xp'];
+                    $arrInfo['train_count_min'] = (int)$dataResource[$i]['train_count_min'];
+                    $arrInfo['train_count_max'] = (int)$dataResource[$i]['train_count_max'];
                     for ($k=0; $k<count($arrDataTrainResource); $k++) {
                         if ($arrDataTrainResource[$k]['resource_id'] == $arrInfo['id']) {
                             $arrInfo['big_count'] = (int)$arrDataTrainResource[$k]['big_count'];
@@ -55,23 +57,11 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                     }
                     $arr[] = $arrInfo;
                 }
-//                $XPCount = ((int)$arr[0]['order_xp'] + (int)$arr[1]['order_xp'] + (int)$arr[2]['order_xp']) / 2;
-//                $COINSCount = (int)$arr[1]['order_price'] + (int)$arr[1]['order_price'] + (int)$arr[2]['order_price'] + 10 / 2;
-                //find the result XPCount and COINSCount
-//                $tempArr=[];
-//                foreach($arr as $key=>$arrT){
-//                    $tempArr[$key]=$arr['order_xp'];
-//                }
-//                array_multisort($tempArr, SORT_NUMERIC, $arr);
-//                $XPCount = (int)$arr[1]['order_xp'] + (int)$arr[2]['order_xp'];
-//                $COINSCount = (int)$arr[1]['order_price'] + (int)$arr[2]['order_price'];
 
                 $result = $shardDb->queryWithAnswerId('INSERT INTO user_train_pack SET user_id='.$userId);//', count_xp='.$XPCount.', count_money='.$COINSCount);
                 $packId = $result[1];
                 $arrMainPack = [];
                 $arrMainPack['id'] = $packId;
-//                $arrMainPack['count_xp'] = $XPCount;
-//                $arrMainPack['count_money'] = $COINSCount;
 
                 if ($userLevel >= 20) {
                     $countCells = 4;
@@ -79,14 +69,13 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                     $countCells = 3;
                 }
                 $arrPacks = [];
-//                $arrTempCountResource = [];
                 for ($i = 0; $i < 3; $i++) {
-                    if ($userLevel >= 20) {
-                        $countResource = (int)rand($arr[$i]['big_count']/3*2, $arr[$i]['big_count']);
-                    } else {
-                        $countResource = (int)rand($arr[$i]['small_count']/3*2, $arr[$i]['small_count']);
-                    }
-//                    $arrTempCountResource[] = $countResource;
+//                    if ($userLevel >= 20) {
+//                        $countResource = (int)rand($arr[$i]['big_count']/3*2, $arr[$i]['big_count']);
+//                    } else {
+//                        $countResource = (int)rand($arr[$i]['small_count']/3*2, $arr[$i]['small_count']);
+//                    }
+                    $countResource = (int)rand($arr[$i]['train_count_min'], $arr[$i]['train_count_max']);
                     for ($k = 0; $k < $countCells; $k++) {
                         $p = [];
                         $result = $shardDb->queryWithAnswerId('INSERT INTO user_train_pack_item SET user_id='.$userId.', user_train_pack_id='.$packId.', resource_id='.$arr[$i]['id'].',

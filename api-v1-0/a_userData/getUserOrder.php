@@ -28,6 +28,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $res['start_time'] = $dict['start_time'];
                     $res['place'] = $dict['place'];
                     $res['faster_buyer'] = $dict['faster_buyer'];
+                    $res['cat_id'] = $dict['cat_id'];
                     $resp[] = $res;
                 }
             } else {
