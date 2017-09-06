@@ -10,12 +10,11 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $mainDb = $app->getMainDb(4);
     try {
         if ($_POST['buildId'] == 12) {
-                $result = $mainDb->query('UPDATE const SET value = '.$_POST['posX'].' WHERE name=AMBAR_POS_X');
-                $result = $mainDb->query('UPDATE const SET value='.$_POST['posY'].' WHERE name='.$_POST['AMBAR_POS_Y']);
+                $result = $mainDb->query('UPDATE const SET value = '.$_POST['posX'].' WHERE name = "AMBAR_POS_X"');
+                $result = $mainDb->query('UPDATE const SET value='.$_POST['posY'].' WHERE name = "AMBAR_POS_Y"');
         } else if ($_POST['buildId'] == 13) {
-            $result = $mainDb->query('UPDATE const SET value = '.$_POST['posX'].' WHERE name=SKLAD_POS_X');
-            $result = $mainDb->query('UPDATE const SET value = '.$_POST['posY'].' WHERE name=SKLAD_POS_Y');
-            $result = $mainDb->query('UPDATE const SET value = '.$_POST['posY'].' WHERE name=SKLAD_POS_Y');
+            $result = $mainDb->query('UPDATE const SET value = '.$_POST['posX'].' WHERE name = "SKLAD_POS_X"');
+            $result = $mainDb->query('UPDATE const SET value = '.$_POST['posY'].' WHERE name = "SKLAD_POS_Y"');
         } else {
             $result = $mainDb->query('UPDATE map_building SET pos_x='.$_POST['posX'].', pos_y='.$_POST['posY'].' WHERE building_id='.$_POST['buildingId']);
         }
