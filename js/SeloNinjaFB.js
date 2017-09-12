@@ -74,7 +74,7 @@ var SeloNinjaFB = {
         if (h < 500) h = 500;
         if (h > 1000) h = 1000;
         console.log('h: ' + h);
-        $('#farm_game').height(h);
+        $('#selo_game').height(h);
     },
 
     reload: function () {
