@@ -36,8 +36,12 @@ try {
                 $resourceItem['cost_max'] = $dict['cost_max'];
                 $resourceItem['cost_hard'] = $dict['cost_hard'];
                 $resourceItem['visitor_price'] = $dict['visitor_price'];
-                $resourceItem['order_price'] = $dict['order_price'];
-                $resourceItem['order_xp'] = $dict['order_xp'];
+                $resourceItem['order_coin_min'] = $dict['order_coin_min'];
+                $resourceItem['order_coin_max'] = $dict['order_coin_max'];
+                $resourceItem['order_xp_min'] = $dict['order_xp_min'];
+                $resourceItem['order_xp_max'] = $dict['order_xp_max'];
+                $resourceItem['train_count_min'] = $dict['train_count_min'];
+                $resourceItem['train_count_max'] = $dict['train_count_max'];
                 $resourceItem['block_by_level'] = $dict['block_by_level'];
                 $resourceItem['order_type'] = $dict['order_type'];
                 $resourceItem['descript'] = $dict['descript'];
