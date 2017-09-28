@@ -38,14 +38,14 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
 //                    $arrIds[] = (int)$arrDataTrainResource[$i]['resource_id'];
 //                };
 
-                $result = $mainDb->query("SELECT id, order_price, order_xp, train_count_min, train_count_max FROM resource WHERE block_by_level <=".$userLevel." AND train_count_max>0 ORDER BY RAND() LIMIT 3");
+                $result = $mainDb->query("SELECT id, order_coin_min, order_xp_min, train_count_min, train_count_max FROM resource WHERE block_by_level <=".$userLevel." AND train_count_max>0 ORDER BY RAND() LIMIT 3");
                 $dataResource = $result->fetchAll();
                 $arr = [];
                 for ($i=0; $i<3; $i++) {
                     $arrInfo = [];
                     $arrInfo['id'] = (int)$dataResource[$i]['id'];
-                    $arrInfo['order_price'] = (int)$dataResource[$i]['order_price'];
-                    $arrInfo['order_xp'] = (int)$dataResource[$i]['order_xp'];
+                    $arrInfo['order_price'] = (int)$dataResource[$i]['order_coin_min'];
+                    $arrInfo['order_xp'] = (int)$dataResource[$i]['order_xp_min'];
                     $arrInfo['train_count_min'] = (int)$dataResource[$i]['train_count_min'];
                     $arrInfo['train_count_max'] = (int)$dataResource[$i]['train_count_max'];
                     for ($k=0; $k<count($arrDataTrainResource); $k++) {
