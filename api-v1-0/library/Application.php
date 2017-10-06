@@ -205,9 +205,6 @@ class Application
                 $resultAnimal = $shardDb->insert('user_animal',
                         ['user_id' => $userId, 'animal_id' => 1, 'user_db_building_id' => $arr['id'], 'raw_time_start' => 0],
                         ['int', 'int', 'int', 'int']);
-                $resultAnimal = $shardDb->insert('user_animal',
-                        ['user_id' => $userId, 'animal_id' => 1, 'user_db_building_id' => $arr['id'], 'raw_time_start' => 0],
-                        ['int', 'int', 'int', 'int']);
             }    
                 
             $resultAmbar = $shardDb->insert('user_building',
