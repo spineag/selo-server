@@ -5,10 +5,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
-    $mainDb = $app->getMainDb($channelId);
+    $channelId = (int)$_POST['channelId'];
+    $shardDb = $app->getShardDb($_POST['userId'], $channelId);
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
         $m = md5($_POST['userId'].$_POST['scale'].$app->md5Secret());
@@ -19,7 +17,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             echo json_encode($json_data);
         } else {
             try {
-                $result = $mainDb->query('UPDATE users SET scale=' . $_POST['scale'] . ' WHERE id=' . $_POST['userId']);
+                $result = $shardDb->query('UPDATE user_info SET scale=' . $_POST['scale'] . ' WHERE user_id=' . $_POST['userId']);
                 if (!$result) {
                     $json_data['id'] = 2;
                     $json_data['status'] = 's319';
