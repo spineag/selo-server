@@ -151,12 +151,15 @@ class Application
 
         $result = $shardDb->query('INSERT INTO user_info SET user_id='.$userId.', cutscene=0, open_order=0, ambar_level=1, sklad_level=1, language_id='.$lang.', sex="'.$sex.'"');
 
-        $arrIDs = [31, 32, 21, 118];
-        foreach ($arrIDs as $value) {
-            $result = $shardDb->insert('user_resource',
-                ['user_id' => $userId, 'resource_id' => $value, 'count' => 3],
-                ['int', 'int', 'int']);
-        }
+//        $arrIDs = [31, 32, 21, 118];
+//        foreach ($arrIDs as $value) {
+//            $result = $shardDb->insert('user_resource',
+//                ['user_id' => $userId, 'resource_id' => $value, 'count' => 3],
+//                ['int', 'int', 'int']);
+//        }
+        $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 32, 'count' => 4], ['int', 'int', 'int']);
+        $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 21, 'count' => 3], ['int', 'int', 'int']);
+        $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 118, 'count' => 3], ['int', 'int', 'int']);
 
         //add lopata
         $result = $shardDb->insert('user_resource',

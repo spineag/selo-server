@@ -227,6 +227,14 @@ try {
                         $buildingItem['image_house'] = $farm['image_house'];
                         $buildingItem['max_count'] = $farm['max_count'];
                         break;
+                    case 18: // PET_HOUSE
+                        $result = $mainDb->query("SELECT * FROM data_pet_house WHERE building_id =" . $dict['id']);
+                        $pHouse = $result->fetch();
+                        $buildingItem['cost'] = $pHouse['cost'];
+                        $buildingItem['block_by_level'] = $pHouse['block_by_level'];
+                        $buildingItem['max_count'] = $pHouse['max_count_pet'];
+                        $buildingItem['currency'] = $pHouse['currency'];
+                        break;
                     case 20: // ORDER
                         $result = $mainDb->query("SELECT * FROM data_map_building WHERE building_id =" . $dict['id']);
                         $build = $result->fetch();
