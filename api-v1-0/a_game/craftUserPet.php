@@ -18,7 +18,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             echo json_encode($json_data);
         } else {
             try {
-                $result = $shardDb->query('UPDATE user_pet SET time_feed=0 WHERE id=' . $_POST['petDbId']);
+                $result = $shardDb->query('UPDATE user_pet SET time_eat=0 WHERE id=' . $_POST['petDbId']);
                 if (!$result) {
                     $json_data['id'] = 2;
                     $json_data['status'] = 's...';

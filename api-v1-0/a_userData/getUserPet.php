@@ -20,7 +20,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $res['id'] = $dict['id'];
                     $res['pet_id'] = $dict['pet_id'];
                     $res['house_db_id'] = $dict['house_db_id'];
-                    $res['time_feed'] = $dict['time_feed'];
+                    $res['time_eat'] = $dict['time_eat'];
                     $resp[] = $res;
                 }
             } else {
