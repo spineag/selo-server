@@ -18,7 +18,9 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             $userId = filter_var($_POST['userId']);
             $shardDb = $app->getShardDb($userId, $channelId);
             try {
-                $result = $shardDb->query('UPDATE user_pet SET time_eat=' . time() . ' WHERE id=' . $_POST['petDbId']);
+                if ($_POST['hasNewEat'] == '1' || $_POST['hasNewEat'] == 1) {
+                    $result = $shardDb->query('UPDATE user_pet SET has_new_eat = 1 WHERE id=' . $_POST['petDbId']);
+                } else $result = $shardDb->query('UPDATE user_pet SET has_new_eat = 0, time_eat=' . time() . ' WHERE id=' . $_POST['petDbId']);
                 if ($result) {
                     $json_data['message'] = '';
                     echo json_encode($json_data);
