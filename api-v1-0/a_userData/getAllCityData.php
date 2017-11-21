@@ -189,6 +189,24 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                     throw new Exception("Bad request to DB!");
                 }
 
+                // pets
+                $respPets = [];
+                $result = $shardDb->query("SELECT * FROM user_pet WHERE user_id =".$userId);
+                if ($result) {
+                    $arr = $result->fetchAll();
+                    foreach ($arr as $value => $dict) {
+                        $res = [];
+                        $res['id'] = $dict['id'];
+                        $res['pet_id'] = $dict['pet_id'];
+                        $res['house_db_id'] = $dict['house_db_id'];
+                        $respPets[] = $res;
+                    }
+                } else {
+                    $json_data['id'] = 9;
+                    $json_data['status'] = 's...';
+                    throw new Exception("Bad request to DB!");
+                }
+
                 $arr = [];
                 $arr['building'] = $respBuildings;
                 $arr['plant'] = $respPlants;
@@ -196,6 +214,7 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                 $arr['animal'] = $respAnimals;
                 $arr['recipe'] = $respRecipes;
                 $arr['wild'] = $respWilds;
+                $arr['pet'] = $respPets;
                 $json_data['message'] = $arr;
                 echo json_encode($json_data);
             } catch (Exception $e) {
