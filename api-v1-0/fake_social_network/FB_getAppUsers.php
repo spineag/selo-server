@@ -6,13 +6,13 @@ $app = Application::getInstance();
 $channelId = 4; // FB
 $mainDb = $app->getMainDb($channelId);
 
-$arU = ['1566615670077474'];
+$arU = ['1566615670077474', '10207698508860654', '1295899383852154', '10214892574173860', '1874180319266068'];
 
-//$result = $mainDb->query("SELECT social_id FROM users ORDER BY RAND() LIMIT 10");
-//$ar = $result->fetchAll();
-//foreach ($ar as $key => $u) {
-//    $arU[] = $u['social_id'];
-//}
+$result = $mainDb->query("SELECT social_id FROM users ORDER BY RAND() LIMIT 10");
+$ar = $result->fetchAll();
+foreach ($ar as $key => $u) {
+    if ($u['social_id'] != $_POST['userId']) $arU[] = $u['social_id'];
+}
 
 // add from user real neighbors
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
