@@ -25,14 +25,14 @@ var SN = function (social) { // social == 2
             VK.callMethod('showInviteBox');
         };
 
-        VK.init({apiId: 5448769, onlyWidgets: true});
+        VK.init({apiId: 	6353765, onlyWidgets: true});
 
         // VK.Widgets.Like("vk_like", {type: "button"});
         // VK.Widgets.Subscribe("vk_subscribe", {}, -38679323);
     });
 
     that.flash = function(){
-        return document.getElementById("farm_game");
+        return document.getElementById("selo_game");
     };
 
 

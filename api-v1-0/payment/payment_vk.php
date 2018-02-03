@@ -4,7 +4,7 @@ require_once '../library/Application.php';
 header("Content-Type: application/json; encoding=utf-8");
 
 $mainDb = Application::getInstance()->getMainDb(2);
-$secret_key = 'pbJkDGDmNCcheNo6dZDe';
+$secret_key = 'iaSBPlN5yc6fvYXPpXp9';
 
 $ar = [];
 $time = time();
@@ -14,7 +14,7 @@ if ($input['item'] == 'item_13') {
     $r = $db_r->fetch();
     $r['item_name'] = 'item_13';
     $r['id'] = '13';
-    $r['url'] = 'http://505.ninja/images/icons/starter_pack_icon.png';
+    $r['url'] = 'http://505.ninja/selo-project/images/icons/starter_pack_icon.png';
     $r['cost_for_real'] = $r['new_cost'];
     $r['count_getted'] = 'Акция';
     $ar[] = $r;
@@ -23,7 +23,7 @@ if ($input['item'] == 'item_13') {
     $r = $db_r->fetch();
     $r['item_name'] = 'item_14';
     $r['id'] = '14';
-    $r['url'] = 'http://505.ninja/images/icons/starter_pack_icon.png';
+    $r['url'] = 'http://505.ninja/selo-project/images/icons/starter_pack_icon.png';
     $r['cost_for_real'] = $r['new_cost'];
     $r['count_getted'] = 'Акция';
     $ar[] = $r;

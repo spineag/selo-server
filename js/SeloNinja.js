@@ -1,4 +1,4 @@
-var FarmNinja = {
+var SeloNinja = {
     user_sid: false,
     swf: {},
     version: -1,
@@ -22,8 +22,8 @@ var FarmNinja = {
             flashvars: flashvars
         };
         var attributes = {
-            id: "farm_game",
-            name: "farm_game"
+            id: "selo_game",
+            name: "selo_game"
         };
         if (this.version == -1) {
             var st = "channelId=2";
@@ -45,7 +45,7 @@ var FarmNinja = {
                     if (this.version == '0') {
                         $('#gameContainer').html('<div id="flash_container">' +
                             '<div id="404">' +
-                            '<img src="https://505.ninja/images/404/window404.png" alt="На ремонте" />' +
+                            '<img src="https://505.ninja/selo-project/images/404/window404.png" alt="На ремонте" />' +
                             '</div>' +
                             '</div>');
                     } else swfobject.embedSWF('client/selo' + this.version + '.swf', 'flash_container', '100%', 640, '13.0', null, flashvars, params, attributes, this.callbackFn);
@@ -67,7 +67,7 @@ var FarmNinja = {
             $('#no_player').css('display', 'block');
         }
         else {
-            document.getElementById("farm_game").style.display = "block";
+            document.getElementById("selo_game").style.display = "block";
         }
     },
 
@@ -78,7 +78,7 @@ var FarmNinja = {
             '</div>' +
             '<div id="no_player">' +
             '<a target="_blank" href="http://www.adobe.com/go/getflashplayer">' +
-            '<img src="https://505.ninja/images/up_flash.jpg" alt="Get Adobe Flash player" />' +
+            '<img src="https://505.ninja/selo-project/images/up_flash.jpg" alt="Get Adobe Flash player" />' +
             '</a>' +
             '</div>' +
             '</div>');
@@ -99,7 +99,7 @@ var FarmNinja = {
 
     getUserGAcidForAS: function () {
         var gacid = this.getUserGAcid();
-        var flash =	document.getElementById("farm_game");
+        var flash =	document.getElementById("selo_game");
         flash.sendGAcidToAS(gacid);
     }
 };
