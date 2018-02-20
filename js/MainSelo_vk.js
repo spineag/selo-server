@@ -25,7 +25,7 @@ var SN = function (social) { // social == 2
             VK.callMethod('showInviteBox');
         };
 
-        VK.init({apiId: 	6353765, onlyWidgets: true});
+        VK.init({apiId: 	6360136, onlyWidgets: true});
 
         // VK.Widgets.Like("vk_like", {type: "button"});
         // VK.Widgets.Subscribe("vk_subscribe", {}, -38679323);

@@ -6,7 +6,7 @@
  *  config
  */
 define("SERVER", '148.251.121.199');
-define("DB", 'selo');
+define("DB", 'selo_vk');
 define("SERVER_DB", '192.168.1.23');
 define("USER", 'ninja505');
 define("PASSWORD","Zuthoopo3S");

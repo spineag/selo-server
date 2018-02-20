@@ -3,12 +3,12 @@ global $cfgs;
 
 $cfgs = array(
     '1' =>  array(
-                 "address" => "505.ninja",
+                 "address" => "505.ninja/selo-project",
                  "sn" => array("channel" => 2,
                                "socialNetworkClass" => "VKSocialNetwork",
                                "local_path" => "local",
-                               "api_id" => 6353765,
-                               "secret_key" => "iaSBPlN5yc6fvYXPpXp9"),
+                               "api_id" => 6360136,
+                               "secret_key" => "GgqsUsmkkURizyfOAt1m"),
                  "snOK" => array("channel" => 3,
                                 "socialNetworkClass" => "OKSocialNetwork",
                                 "local_path" => "local",

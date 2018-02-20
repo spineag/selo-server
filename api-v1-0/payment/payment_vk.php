@@ -4,7 +4,7 @@ require_once '../library/Application.php';
 header("Content-Type: application/json; encoding=utf-8");
 
 $mainDb = Application::getInstance()->getMainDb(2);
-$secret_key = 'iaSBPlN5yc6fvYXPpXp9';
+$secret_key = 'GgqsUsmkkURizyfOAt1m';
 
 $ar = [];
 $time = time();

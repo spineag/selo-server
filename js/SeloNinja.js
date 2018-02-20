@@ -35,7 +35,7 @@ var SeloNinja = {
             }
             $.ajax({
                 type: 'post',
-                url: '../php/api-v1-0/getVersionClient.php',
+                url: '../selo-project/php/api-v1-0/a_gameData/getVersionClient.php',
                 data: st,
                 response: 'text',
                 success: function (v) {
