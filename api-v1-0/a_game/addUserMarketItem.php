@@ -35,7 +35,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                         }
                         $result = $shardDb->queryWithAnswerId('INSERT INTO user_market_item SET user_id=' . $userId .
                             ', buyer_id=0, resource_id=' . $_POST['resourceId'] . ', time_start=' . $time .
-                            ',time_sold=0, cost=' . $_POST['cost'] . ', resource_count=' . $_POST['count'] . ', in_papper=' . $_POST['inPapper'] . ', number_cell=' . $_POST['numberCell'] . ', time_in_papper=' . $timeInPapper . ', level=' . $_POST['level']);
+                            ',time_sold=0, cost=' . $_POST['cost'] . ', resource_count=' . $_POST['count'] . ', number_cell=' . $_POST['numberCell'] . ', time_in_papper=' . $timeInPapper . ', level=' . $_POST['level']);
                         if ($result) {
                             $res = [];
                             $res['id'] = $result[1];
@@ -45,7 +45,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                             $res['cost'] = $_POST['cost'];
                             $res['resource_id'] = $_POST['resourceId'];
                             $res['resource_count'] = $_POST['count'];
-                            $res['in_papper'] = $_POST['inPapper'];
+//                            $res['in_papper'] = $_POST['inPapper'];
                             $res['number_cell'] = $_POST['numberCell'];
                             $res['time_in_papper'] = $_POST['timeInPapper'];
                         } else {
