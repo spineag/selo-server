@@ -54,10 +54,10 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     }
 
                     $resultNeighbor = $shardDb->update('user_neighbor',
-                    ['last_update' => date('j'), 'resource_id1' => $arr2[0], 'resource_id2' => $arr2[1], 'resource_id3' => $arr2[2], 'resource_id4' => $arr2[3], 'resource_id5' => $arr2[4], 'resource_id6' => $arr2[5]],
-                    ['user_id' => $_POST['userId']],
-                    ['int', 'int', 'int', 'int', 'int', 'int', 'int'],
-                    ['int']);
+                        ['last_update' => date('j'), 'resource_id1' => $arr2[0], 'resource_id2' => $arr2[1], 'resource_id3' => $arr2[2], 'resource_id4' => $arr2[3], 'resource_id5' => $arr2[4], 'resource_id6' => $arr2[5]],
+                        ['user_id' => $_POST['userId']],
+                        ['int', 'int', 'int', 'int', 'int', 'int', 'int'],
+                        ['int']);
 
                     $result = $shardDb->query("SELECT * FROM user_neighbor WHERE user_id =".$_POST['userId']);
                     if ($result) {

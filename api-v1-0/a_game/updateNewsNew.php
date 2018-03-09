@@ -9,25 +9,25 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $shardDb = $app->getShardDb($_POST['userId'], $channelId);
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
-        $m = md5($_POST['userId'].$_POST['marketCell'].$app->md5Secret());
+        $m = md5($_POST['userId'].$_POST['newsNew'].$app->md5Secret());
         if ($m != $_POST['hash']) {
             $json_data['id'] = 6;
-            $json_data['status'] = 's398';
+            $json_data['status'] = 's399';
             $json_data['message'] = 'wrong hash';
             echo json_encode($json_data);
         } else {
             try {
-                $result = $shardDb->query('UPDATE user_info SET market_cell=' . $_POST['marketCell'] . ' WHERE user_id=' . $_POST['userId']);
+                $result = $shardDb->query('UPDATE user_info SET news_new ="' . $_POST['newsNew'] . '" WHERE user_id=' . $_POST['userId']);
                 if (!$result) {
                     $json_data['id'] = 2;
-                    $json_data['status'] = 's335';
+                    $json_data['status'] = 's336';
                     throw new Exception("Bad request to DB!");
                 }
 
                 $json_data['message'] = '';
                 echo json_encode($json_data);
             } catch (Exception $e) {
-                $json_data['status'] = 's182';
+                $json_data['status'] = 's207';
                 $json_data['message'] = $e->getMessage();
                 echo json_encode($json_data);
             }
@@ -42,7 +42,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
 else
 {
     $json_data['id'] = 1;
-    $json_data['status'] = 's183';
+    $json_data['status'] = 's207';
     $json_data['message'] = 'bad POST[userId]';
     echo json_encode($json_data);
 }

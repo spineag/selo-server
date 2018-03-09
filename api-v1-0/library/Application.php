@@ -152,7 +152,7 @@ class Application
         $result = $shardDb->query('INSERT INTO user_info SET user_id='.$userId.', cutscene=0, open_order=0, ambar_level=1, sklad_level=1, language_id='.$lang.', sex="'.$sex.'"');
 
         $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 32, 'count' => 4], ['int', 'int', 'int']);
-        $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 21, 'count' => 3], ['int', 'int', 'int']);
+        $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 21, 'count' => 6], ['int', 'int', 'int']);
         $result = $shardDb->insert('user_resource', ['user_id' => $userId, 'resource_id' => 118, 'count' => 3], ['int', 'int', 'int']);
 
         //add lopata
@@ -162,22 +162,22 @@ class Application
 
             // add ridges and plant on them
             $resultRidge = $shardDb->insert('user_building',
+                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 33, 'pos_y' => 22, 'is_flip' => 0, 'count_cell' => 0],
+                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
+            $resultRidge = $shardDb->insert('user_building',
+                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 35, 'pos_y' => 22, 'is_flip' => 0, 'count_cell' => 0],
+                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
+            $resultRidge = $shardDb->insert('user_building',
                 ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 33, 'pos_y' => 24, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultRidge = $shardDb->insert('user_building',
                 ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 35, 'pos_y' => 24, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultRidge = $shardDb->insert('user_building',
-                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 37, 'pos_y' => 24, 'is_flip' => 0, 'count_cell' => 0],
-                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
-            $resultRidge = $shardDb->insert('user_building',
                 ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 33, 'pos_y' => 26, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultRidge = $shardDb->insert('user_building',
                 ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 35, 'pos_y' => 26, 'is_flip' => 0, 'count_cell' => 0],
-                ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
-            $resultRidge = $shardDb->insert('user_building',
-                ['user_id' => $userId, 'building_id' => 11, 'in_inventory' => 0, 'pos_x' => 37, 'pos_y' => 26, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultRidge = $shardDb->query("SELECT * FROM user_building WHERE building_id = 11 AND user_id =".$userId);
             if ($resultRidge) {
@@ -191,7 +191,7 @@ class Application
             
             // add farm and chickens    
             $resultFarm = $shardDb->insert('user_building',
-                ['user_id' => $userId, 'building_id' => 14, 'in_inventory' => 0, 'pos_x' => 22, 'pos_y' => 11, 'is_flip' => 0, 'count_cell' => 0],
+                ['user_id' => $userId, 'building_id' => 14, 'in_inventory' => 0, 'pos_x' => 22, 'pos_y' => 6, 'is_flip' => 0, 'count_cell' => 0],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int']);
             $resultFarm = $shardDb->query("SELECT * FROM user_building WHERE building_id = 14 AND user_id =".$userId);
             if ($resultFarm) {
