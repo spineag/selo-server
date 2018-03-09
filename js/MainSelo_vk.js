@@ -58,7 +58,10 @@ var SN = function (social) { // social == 2
                 that.flash().apiCallback({message: 'success', result: d, key: e.key, method: e.method});
             }
         });
-
+    };
+    
+    that.callMethod = function(m,p) {
+        VK.callMethod.apply(null, [m].concat(p));
     };
 
 };
