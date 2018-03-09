@@ -5,9 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
+    $channelId = (int)$_POST['channelId'];
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
         $m = md5($_POST['userId'].$_POST['anDbId'].$app->md5Secret());

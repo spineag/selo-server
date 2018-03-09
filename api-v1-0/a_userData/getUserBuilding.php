@@ -5,9 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
+    $channelId = (int)$_POST['channelId'];
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
         $mainDb = $app->getMainDb($channelId);
@@ -44,17 +42,10 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $json_data['status'] = 's299';
                     throw new Exception("Bad request to DB!");
                 }
-                if ($channelId == 2) {
-                    $result = $mainDb->query("SELECT unlocked_land FROM users WHERE id = " . $_POST['userId']);
-                    $u = $result->fetchAll();
-                    $u = $u[0]['unlocked_land'];
-                    $arrLocked = explode("&", $u);
-                } else { // == 3 || == 4
-                    $result = $shardDb->query("SELECT unlocked_land FROM user_info WHERE user_id = " . $_POST['userId']);
-                    $u = $result->fetchAll();
-                    $u = $u[0]['unlocked_land'];
-                    $arrLocked = explode("&", $u);
-                }
+                $result = $shardDb->query("SELECT unlocked_land FROM user_info WHERE user_id = " . $_POST['userId']);
+                $u = $result->fetchAll();
+                $u = $u[0]['unlocked_land'];
+                $arrLocked = explode("&", $u);
 
                 $result = $mainDb->query("SELECT * FROM map_building");
                 if ($result) {

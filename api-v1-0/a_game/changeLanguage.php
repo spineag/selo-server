@@ -6,9 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
     $userId = filter_var($_POST['userId']);
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2;//VK
+    $channelId = (int)$_POST['channelId'];
     try {
         $shardDb = $app->getShardDb($_POST['userId'], $channelId);
         $result = $shardDb->query("UPDATE user_info SET language_id=" . $_POST['languageId']. ' WHERE user_id=' . $_POST['userId']);

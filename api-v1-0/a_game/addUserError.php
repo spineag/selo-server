@@ -5,9 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
+    $channelId = (int)$_POST['channelId'];
 
     try {
         $shardDb = $app->getShardDb($_POST['userId'], $channelId);

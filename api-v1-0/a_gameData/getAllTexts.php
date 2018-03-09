@@ -3,13 +3,8 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/Application.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/defaultResponseJSON.php');
 
-//if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
-//    $userId = filter_var($_POST['userId']);
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
-//    $shardDb = $app->getShardDb($userId, $channelId);
+    $channelId = (int)$_POST['channelId'];
     $mainDb = $app->getMainDb($channelId);
     try {
         $result = $mainDb->query("SELECT * FROM all_texts");

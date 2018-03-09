@@ -10,9 +10,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/App
 include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/defaultResponseJSON.php');
 
 $app = Application::getInstance();
-if (isset($_POST['channelId'])) {
-    $channelId = (int)$_POST['channelId'];
-} else $channelId = 2; // VK
+$channelId = (int)$_POST['channelId'];
 $mainDb = $app->getMainDb($channelId);
 
 try {

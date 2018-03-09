@@ -19,26 +19,23 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             echo json_encode($json_data);
         } else {
 
-            // remove duplicates
-//            if ($channel == 2) {
-                try {
-                    $result = $shardDb->query("SELECT id FROM user_quest WHERE user_id = ".$userId." group by user_id, quest_id having count(*)>1");
-                    $ar = $result->fetchAll();
-                    if ($ar) { // there are dublicates :(
-                        $arDubl = [];
-                        foreach ($ar as $value => $dict) {
-                            $arDubl[] = $dict['id'];
-                        }
-                        $dubl = implode(',', array_map('intval', $arDubl));
-                        $result = $shardDb->query("DELETE FROM user_quest WHERE user_id =" . $userId . " AND id IN (" . $dubl . ") AND date_finish='0'");
-                        $result = $shardDb->query("DELETE FROM user_quest_task WHERE user_id =" . $userId . " AND quest_id IN (" . $dubl . ") AND is_done=0");
+            try {
+                $result = $shardDb->query("SELECT id FROM user_quest WHERE user_id = ".$userId." group by user_id, quest_id having count(*)>1");
+                $ar = $result->fetchAll();
+                if ($ar) { // there are dublicates :(
+                    $arDubl = [];
+                    foreach ($ar as $value => $dict) {
+                        $arDubl[] = $dict['id'];
                     }
-                } catch (Exception $e) {
+                    $dubl = implode(',', array_map('intval', $arDubl));
+                    $result = $shardDb->query("DELETE FROM user_quest WHERE user_id =" . $userId . " AND id IN (" . $dubl . ") AND date_finish='0'");
+                    $result = $shardDb->query("DELETE FROM user_quest_task WHERE user_id =" . $userId . " AND quest_id IN (" . $dubl . ") AND is_done=0");
+                }
+            } catch (Exception $e) {
 //                    $json_data['status'] = 's...';
 //                    $json_data['message'] = $e->getMessage();
 //                    echo json_encode($json_data);
-                }
-//            }
+            }
 
             try {
                 $result = $shardDb->query("SELECT * FROM user_quest WHERE user_id =".$userId. " AND get_award = 0 AND is_out_date = 0");

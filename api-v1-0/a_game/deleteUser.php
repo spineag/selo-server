@@ -6,17 +6,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/selo-project/php/api-v1-0/library/def
 if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $app = Application::getInstance();
     $userId = filter_var($_POST['userId']);
-    if (isset($_POST['channelId'])) {
-        $channelId = (int)$_POST['channelId'];
-    } else $channelId = 2; // VK
+    $channelId = (int)$_POST['channelId'];
     $mainDb = $app->getMainDb($channelId);
     $shardDb = $app->getShardDb($userId, $channelId);
 
     try {
 
-        if ($channelId == 3 || $channelId == 4) {
-            $shardDb->query('DELETE FROM user_info WHERE user_id='.$_POST['userId']);
-        }
+        $shardDb->query('DELETE FROM user_info WHERE user_id='.$_POST['userId']);
         
         $shardDb->query('DELETE FROM user_animal WHERE user_id='.$_POST['userId']);
 
