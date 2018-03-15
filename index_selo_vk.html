@@ -28,12 +28,13 @@
 
     <script> function vk_init() {  sn.vk_init(); }  </script>
     <script> function vk_api(e) {  sn.vk_api(e); }  </script>
+    <script> function callMethod(m,p) {  sn.callMethod(m,p); }  </script>
   </head>
 
   <body>
     <nav>
       <ul>
-        <li><a href="#" class="one" onclick = 'sn.showInviteBox();'></a></li>
+        <li><a href="#" class="one" onclick = 'sn.callMethod("showInviteBox");'></a></li>
         <!--<li><a href="https://vk.com/club110081720" class="two" target="_blank"></a></li>
         <li><a href="https://vk.com/club110081720?w=page-110081720_50551972" class="three" target="_blank"></a></li>
         <li><a href="https://vk.com/topic-110081720_33530828" class="four" target="_blank"></a></li>-->
