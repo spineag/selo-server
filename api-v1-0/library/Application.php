@@ -240,7 +240,7 @@ class Application
             }
 
             $resultNeighbor = $shardDb->insert('user_neighbor',
-                ['user_id' => $userId, 'last_update' => date('j'), 'resource_id1' => $arr[0], 'resource_id2' => $arr[1], 'resource_id3' => $arr[2], 'resource_id4' => $arr[3], 'resource_id5' => $arr[4], 'resource_id6' => $arr[5]],
+                ['user_id' => $userId, 'last_update' => date('j'), 'resource_id1' => 31, 'resource_id2' => 125, 'resource_id3' => 32, 'resource_id4' => 1, 'resource_id5' => 21, 'resource_id6' => 5],
                 ['int', 'int', 'int', 'int', 'int', 'int', 'int', 'int']);
 
             return $userId;

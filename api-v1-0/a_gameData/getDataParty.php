@@ -10,15 +10,24 @@ $mainDb = $app->getMainDb($channelId);
 try {
     $result = $mainDb->query("SELECT * FROM data_party");
     if ($result) {
-        $r = $result->fetch();
-
+        $partyALL = $result->fetchAll();
+    } else {
+        $json_data['id'] = 1;
+        $json_data['status'] = 's291';
+        throw new Exception("Bad request to DB!");
+    }
+    $resp = [];
+    if (!empty($partyALL)) {
+        foreach ($partyALL as $key => $party) {
+            $resp[] = $party;
+        }
     } else {
         $json_data['id'] = 2;
-        $json_data['status'] = 's307';
+        $json_data['status'] = 's292';
         throw new Exception("Bad request to DB!");
     }
 
-    $json_data['message'] = $r;
+    $json_data['message'] = $resp;
     echo json_encode($json_data);
 }
 catch (Exception $e)

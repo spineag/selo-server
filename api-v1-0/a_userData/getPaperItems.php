@@ -18,7 +18,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
 //            if ($channelId == 2) {
             $arShards = $app->getAllShardsDb($channelId);
             foreach ($arShards as $key => $shard) {
-                $result = $shard->query("SELECT * FROM user_market_item WHERE in_papper = 1 AND buyer_id = 0 AND time_in_papper > 0 AND level <= ".$_POST['level']." AND user_id <> ".$userId." ORDER BY RAND() LIMIT 60");
+                $result = $shard->query("SELECT * FROM user_market_item WHERE  buyer_id = 0 AND  level <= ".$_POST['level']." AND user_id <> ".$userId." ORDER BY RAND() LIMIT 60");
                 $arr = $result->fetchAll();
                 foreach ($arr as $key => $a) {
                     $q = [];
