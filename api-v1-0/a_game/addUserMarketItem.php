@@ -23,19 +23,19 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $res = $result->fetch();
                     if (!$res) {
                         $time = time();
-                        if (!$_POST['inPapper']) $timeInPapper = 0;
-                        else {
-                            $timeInPapper = time();
-                            $mainDb = $app->getMainDb($channelId);
-                            if ($channelId == 2) {
-                                $result = $mainDb->query('UPDATE users SET in_papper=' . $time . ' WHERE id=' . $_POST['userId']);
-                            } else { // == 3 || == 4
-                                $result = $shardDb->query('UPDATE user_info SET in_papper=' . $time . ' WHERE user_id=' . $_POST['userId']);
-                            }
-                        }
+//                        if (!$_POST['inPapper']) $timeInPapper = 0;
+//                        else {
+//                            $timeInPapper = time();
+//                            $mainDb = $app->getMainDb($channelId);
+//                            if ($channelId == 2) {
+//                                $result = $mainDb->query('UPDATE users SET in_papper=' . $time . ' WHERE id=' . $_POST['userId']);
+//                            } else { // == 3 || == 4
+//                                $result = $shardDb->query('UPDATE user_info SET in_papper=' . $time . ' WHERE user_id=' . $_POST['userId']);
+//                            }
+//                        }
                         $result = $shardDb->queryWithAnswerId('INSERT INTO user_market_item SET user_id=' . $userId .
                             ', buyer_id=0, resource_id=' . $_POST['resourceId'] . ', time_start=' . $time .
-                            ',time_sold=0, cost=' . $_POST['cost'] . ', resource_count=' . $_POST['count'] . ', number_cell=' . $_POST['numberCell'] . ', time_in_papper=' . $timeInPapper . ', level=' . $_POST['level']);
+                            ',time_sold=0, cost=' . $_POST['cost'] . ', resource_count=' . $_POST['count'] . ', number_cell=' . $_POST['numberCell'] . ', level=' . $_POST['level']);
                         if ($result) {
                             $res = [];
                             $res['id'] = $result[1];

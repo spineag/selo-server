@@ -63,6 +63,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                 $user['mouse_count'] = $uS['mouse_count'];
                 $user['time_paper'] = $uS['time_paper'];
                 $user['in_papper'] = $uS['in_papper'];
+                $user['news_new'] = $uS['news_new'];
                 $user['chest_day'] = gmdate("d", $uS['chest_day']);
                 $user['count_chest'] = $uS['count_chest'];
                 $user['notification_new'] = $uS['notification_new'];

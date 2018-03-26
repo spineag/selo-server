@@ -31,7 +31,7 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                     $arr = $result2->fetch();
                     $d['buyer_social_id'] = $arr['social_id'];
                 } else {
-                    if ($_POST['userId'] == $idU) {
+                    if ($_POST['userId'] == $uid) {
                         if (time() - (int)$d['time_start'] > 24 * 60 * 60) {
                             $result2 = $mainDb->query("SELECT id FROM users WHERE social_id = 1");
                             $arr = $result2->fetch();
