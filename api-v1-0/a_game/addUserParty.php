@@ -8,27 +8,29 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $userId = filter_var($_POST['userId']);
     $channelId = (int)$_POST['channelId'];
     $shardDb = $app->getShardDb($userId, $channelId);
-    try {
-    if ($app->checkSessionKey($userId, $_POST['sessionKey'], $channelId)) {
-        $m = md5($_POST['userId'].$app->md5Secret());
+
+    if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
+        $m = md5($_POST['userId'].$_POST['idParty'].$_POST['countResource'].$app->md5Secret());
         if ($m != $_POST['hash']) {
             $json_data['id'] = 6;
-            $json_data['status'] = 's397';
+            $json_data['status'] = 's359';
             $json_data['message'] = 'wrong hash';
             echo json_encode($json_data);
         } else {
             try {
-                $result = $shardDb->query('UPDATE user_party SET took_gift ="'.$_POST["tookGift"].'", count_resource ='.$_POST["countResource"].', show_window ='.$_POST["showWindow"].', id_party ='.$_POST["idPartyNew"].' WHERE user_id ='.$userId. ' AND id_party=' . $_POST['idPartyOld']);
-                if (!$result) {
+                $time = time();
+                $result = $shardDb->queryWithAnswerId('INSERT INTO user_party SET user_id=' . $userId . ', id_party=' . $_POST['idParty'] . ', count_resource=' . $_POST['countResource']);
+                if ($result) {
+                    $json_data['message'] = $result[1];
+                    echo json_encode($json_data);
+                } else {
                     $json_data['id'] = 2;
-                    $json_data['status'] = 's340';
-                    throw new Exception("Bad request to DB!");
+                    $json_data['status'] = 's021';
+                    $json_data['message'] = 'bad query';
                 }
 
-                $json_data['message'] = '';
-                echo json_encode($json_data);
             } catch (Exception $e) {
-                $json_data['status'] = 's180';
+                $json_data['status'] = 's022';
                 $json_data['message'] = $e->getMessage();
                 echo json_encode($json_data);
             }
@@ -40,17 +42,10 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
         echo json_encode($json_data);
     }
 }
-catch (Exception $e)
-{
-    $json_data['status'] = 's098';
-    $json_data['message'] = $e->getMessage();
-    echo json_encode($json_data);
-}
-}
 else
 {
     $json_data['id'] = 1;
-    $json_data['status'] = 's181';
+    $json_data['status'] = 's023';
     $json_data['message'] = 'bad POST[userId]';
     echo json_encode($json_data);
 }

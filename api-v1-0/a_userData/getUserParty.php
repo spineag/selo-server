@@ -11,14 +11,21 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     try {
         $result = $shardDb->query("SELECT * FROM user_party WHERE user_id =" . $userId);
         if ($result) {
-            $res = $result->fetch();
-            if (!$res) {
+            $partyALL = $result->fetchAll();
+            if (!empty($partyALL)) {
+                $res = [];
+                foreach ($partyALL as $key => $party) {
+                    $res[] = $party;
+                }
+            } else {
                 $result = $shardDb->queryWithAnswerId('INSERT INTO user_party SET user_id=' . $userId);
                 $res = [];
-                $res['id'] = $result[1];
-                $res['count_resource'] = 0;
-                $res['took_gift'] = "0&0&0&0&0";
-                $res['show_window'] = 0;
+                $resp = [];
+                $resp['id_party'] = -1;
+                $resp['count_resource'] = 0;
+                $resp['took_gift'] = "0&0&0&0&0";
+                $resp['show_window'] = 0;
+                $res[] = $resp;
             }
         } else {
             $json_data['id'] = 2;

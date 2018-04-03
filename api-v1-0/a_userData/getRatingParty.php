@@ -17,7 +17,7 @@ $allShardDb = $app->getAllShardsDb($channelId);
 try {
     $partyALL = [];
     foreach ($allShardDb as $key => $shard) {
-        $result = $shard->query("SELECT * FROM user_party");
+        $result = $shard->query("SELECT * FROM user_party WHERE id_party =" .$_POST['idParty']);
         $ar = $result->fetchAll();
         foreach ($ar as $key2 => $k) {
             $pa = [];
