@@ -4,8 +4,9 @@ include_once('../library/Application.php');
 $mainDb = Application::getInstance()->getMainDb(2);
 $socialNetwork = Application::getInstance()->getSocialNetwork(2);
 
-$twoWeeks = time() - 1296000;
-$result = $mainDb->query("SELECT social_id FROM users WHERE last_visit_date > ".$twoWeeks);
+//$twoWeeks = time() - 1296000;
+//$result = $mainDb->query("SELECT social_id FROM users WHERE last_visit_date > ".$twoWeeks);
+$result = $mainDb->query("SELECT social_id FROM users");
 $ar = $result->fetchAll();
 $ids = [];
 foreach ($ar as $key => $value) {
@@ -14,7 +15,7 @@ foreach ($ar as $key => $value) {
     }
 }
 
-$txt = 'Помогите собрать побольше молока для Ниточки и обменять их на уникальные призы!';
+$txt = 'Прими участие в новом событии "Пасхальные хлопоты!" Скорее в игру!';
 
 while (count($ids) > 1) {
     $arr = array_splice($ids,0,100);
