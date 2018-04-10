@@ -8,18 +8,18 @@ $channelId = (int)$_POST['channelId'];
 $mainDb = $app->getMainDb($channelId);
 
 try {
-    $result = $mainDb->query("SELECT * FROM data_sale_pack");
+    $result = $mainDb->query("SELECT * FROM data_mini_party");
     if ($result) {
-        $saleALL = $result->fetchAll();
+        $partyALL = $result->fetchAll();
     } else {
         $json_data['id'] = 1;
         $json_data['status'] = 's291';
         throw new Exception("Bad request to DB!");
     }
     $resp = [];
-    if (!empty($saleALL)) {
-        foreach ($saleALL as $key => $sale) {
-            $resp[] = $sale;
+    if (!empty($partyALL)) {
+        foreach ($partyALL as $key => $party) {
+            $resp[] = $party;
         }
     } else {
         $json_data['id'] = 2;
