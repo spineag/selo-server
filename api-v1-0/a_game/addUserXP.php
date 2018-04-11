@@ -17,11 +17,24 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             echo json_encode($json_data);
         } else {
             try {
-                $result = $mainDb->query('UPDATE users SET xp='.$_POST['countAll'].' WHERE id='.$_POST['userId']);
-                if (!$result) {
-                    $json_data['id'] = 2;
-                    $json_data['status'] = 's235';
-                    throw new Exception("Bad request to DB!");
+                if ($channelId == 4) {
+                    $result = $mainDb->query("SELECT xp FROM users WHERE id =" . $_POST['userId']);
+                    $xp = $result->fetch()['xp'];
+                    if ($xp < $_POST['countAll']) {
+                        $result = $mainDb->query('UPDATE users SET xp=' . $_POST['countAll'] . ' WHERE id=' . $_POST['userId']);
+                        if (!$result) {
+                            $json_data['id'] = 2;
+                            $json_data['status'] = 's235';
+                            throw new Exception("Bad request to DB!");
+                        }
+                    }
+                } else {
+                    $result = $mainDb->query('UPDATE users SET xp=' . $_POST['countAll'] . ' WHERE id=' . $_POST['userId']);
+                    if (!$result) {
+                        $json_data['id'] = 2;
+                        $json_data['status'] = 's235';
+                        throw new Exception("Bad request to DB!");
+                    }
                 }
 
                 $json_data['message'] = '';
