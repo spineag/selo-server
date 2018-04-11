@@ -127,11 +127,7 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                         $res['id'] = $dict['id'];
                         $res['animal_id'] = $dict['animal_id'];
                         $res['user_db_building_id'] = $dict['user_db_building_id'];
-                        if ($dict['raw_time_start'] == 0) {
-                            $res['time_work'] = 0;
-                        } else {
-                            $res['time_work'] = time() - $dict['raw_time_start'];
-                        }
+                        $res['time_work'] = $dict['raw_time_start'];
                         $respAnimals[] = $res;
                     }
                 } else {
