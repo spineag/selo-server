@@ -18,7 +18,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             echo json_encode($json_data);
         } else {
             try {
-                $result = $shardDb->query('UPDATE user_party SET took_gift ="'.$_POST["tookGift"].'", count_resource ='.$_POST["countResource"].', show_window ='.$_POST["showWindow"].', id_party ='.$_POST["idPartyNew"].' WHERE user_id ='.$userId. ' AND id_party=' . $_POST['idPartyOld']);
+                $result = $shardDb->query('UPDATE user_party SET friend_id ="'.$_POST["friendId"].'", friend_count ="'.$_POST["friendCount"].'", took_gift ="'.$_POST["tookGift"].'", count_resource ='.$_POST["countResource"].', show_window ='.$_POST["showWindow"].', id_party ='.$_POST["idPartyNew"].' WHERE user_id ='.$userId. ' AND id_party=' . $_POST['idPartyOld']);
                 if (!$result) {
                     $json_data['id'] = 2;
                     $json_data['status'] = 's340';

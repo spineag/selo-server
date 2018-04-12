@@ -29,6 +29,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                     $res['user_db_building_id'] = $dict['user_db_building_id'];
                     $res['time_work'] = time() - $dict['time_start'];
                     $res['time_start'] = $dict['time_start'];
+                    $res['friend_id'] = $dict['friend_id'];
                     $resp[] = $res;
                 }
             } else {

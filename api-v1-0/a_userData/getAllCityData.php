@@ -90,6 +90,7 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                         $res['plant_id'] = $dict['plant_id'];
                         $res['user_db_building_id'] = $dict['user_db_building_id'];
                         $res['time_work'] = time() - $dict['time_start'];
+                        $res['friend_id'] = $dict['friend_id'];
                         $respPlants[] = $res;
                     }
                 } else {
