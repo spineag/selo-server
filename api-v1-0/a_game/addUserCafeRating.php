@@ -9,15 +9,15 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $channelId = (int)$_POST['channelId'];
     $shardDb = $app->getShardDb($userId, $channelId);
     try {
-        $result = $shardDb->query("SELECT * FROM user_cafe WHERE user_id =" . $userId);
-        if (!$result) {
+        $result = $shardDb->queryWithAnswerId('INSERT INTO user_cafe_rating SET user_id=' . $userId . ', count = 0');
+        if ($result) {
+            $json_data['message'] = $result[1];
+            echo json_encode($json_data);
+        } else {
             $json_data['id'] = 2;
-            $json_data['status'] = 's307';
-            throw new Exception("Bad request to DB!");
+            $json_data['status'] = 's021';
+            $json_data['message'] = 'bad query';
         }
-
-        $json_data['message'] = $result;
-        echo json_encode($json_data);
     } catch (Exception $e) {
         $json_data['status'] = 's098';
         $json_data['message'] = $e->getMessage();
