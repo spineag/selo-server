@@ -14,8 +14,8 @@ class Payment {
     const ERROR_TYPE_PARAM_SIGNATURE = 104;
 
     // в эти переменные следует записать открытый и секретный ключи приложения
-    const APP_PUBLIC_KEY = "CBALJOGLEBABABABA";
-    const APP_SECRET_KEY = "864364A475EBF25367549586";
+    const APP_PUBLIC_KEY = "CBAEDBIMEBABABABA";
+    const APP_SECRET_KEY = "EC804AAB7DD4B598C4F2C3C5";
 
     // массив пар код продукта => цена
     private static $catalog = array();

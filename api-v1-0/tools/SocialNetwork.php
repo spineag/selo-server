@@ -72,7 +72,7 @@ class VKSocialNetwork implements SocialNetworkInterface {
     }
 
     public function sendNotification($socialNetworkUid, $message) {
-        return $this->getSocialObject()->api('secure.sendNotification', array('timestamp'=>time(), 'user_ids'=>$socialNetworkUid, 'message'=>$message));
+        return $this->getSocialObject()->api('secure.sendNotification', array('user_ids'=>$socialNetworkUid, 'message'=>$message));
     }
 
     public function isBirthDay($date) {

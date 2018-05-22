@@ -14,7 +14,7 @@ var SN = function (social) { // social == 3
         });
 
     that.flash = function(){
-        return document.getElementById("farm_game");
+        return document.getElementById("selo_game");
     };
     
     that.getProfile = function(userSocialId, params) {
@@ -107,7 +107,7 @@ var SN = function (social) { // social == 3
             "media":[
                 {
                     "type": "text",
-                    "text": 'Умелые Лапки'
+                    "text": 'Вязаный мир'
                 },
                 // {
                 //     "type": "link",
@@ -120,7 +120,7 @@ var SN = function (social) { // social == 3
                         {
                             "url": url,
                             "mark": "",
-                            "title": "Умелые Лапки"
+                            "title": "Вязаный мир"
                         }
                     ]
                     // },
@@ -140,12 +140,12 @@ function API_callback(method, result, data) {
         //    console.log(status + "   " + data + " " + error["error_msg"]);
         //}, data);
     } else if (method == "showPayment" && result == "ok") {
-        document.getElementById("farm_game").onPaymentCallback(result);
+        document.getElementById("selo_game").onPaymentCallback(result);
     } else if (method == 'postMediatopic') {
         if (result == 'ok') {
-            document.getElementById("farm_game").wallPostSave();
+            document.getElementById("selo_game").wallPostSave();
         } else {
-            document.getElementById("farm_game").wallPostCancel();
+            document.getElementById("selo_game").wallPostCancel();
         }
     }
 }

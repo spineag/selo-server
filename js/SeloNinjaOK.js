@@ -1,4 +1,4 @@
-var FarmNinjaOK = {
+var SeloNinjaOK = {
     user_sid: false,
     swf: {},
     version: -1,
@@ -21,9 +21,9 @@ var FarmNinjaOK = {
             wmode: "direct",
             flashvars: flashvars
         };
-        var attributes = {
-            id: "farm_game",
-            name: "farm_game"
+          var attributes = {
+            id: "selo_game",
+            name: "selo_game"
         };
         if (this.version == -1) {
             var arrStr = params.flashvars.data.split("&");
@@ -37,7 +37,7 @@ var FarmNinjaOK = {
             if (wasFind) {  t = t.substring(15); st = st + "&userSocialId=" + t; }
             $.ajax({
                 type: 'post',
-                url: '../php/api-v1-0/getVersionClient.php',
+                url: '../selo-project/php/api-v1-0/a_gameData/getVersionClient.php',
                 data: st,
                 response: 'text',
                 success: function (v) {
@@ -69,7 +69,7 @@ var FarmNinjaOK = {
             $('#no_player').css('display', 'block');
         }
         else {
-            document.getElementById("farm_game").style.display = "block";
+            document.getElementById("selo_game").style.display = "block";
         }
     },
 
@@ -80,7 +80,7 @@ var FarmNinjaOK = {
             '</div>' +
             '<div id="no_player">' +
             '<a target="_blank" href="http://www.adobe.com/go/getflashplayer">' +
-            '<img src="https://505.ninja/images/up_flash.jpg" alt="Get Adobe Flash player" />' +
+            '<img src="https://505.ninja/selo-project/images/up_flash.jpg" alt="Get Adobe Flash player" />' +
             '</a>' +
             '</div>' +
             '</div>');
@@ -101,7 +101,7 @@ var FarmNinjaOK = {
 
     getUserGAcidForAS: function () {
         var gacid = this.getUserGAcid();
-        var flash =	document.getElementById("farm_game");
+        var flash =	document.getElementById("selo_game");
         flash.sendGAcidToAS(gacid);
     }
 };

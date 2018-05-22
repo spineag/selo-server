@@ -24,11 +24,12 @@ class vkapi {
     function api($method,$params=false) {
         if (!$params) $params = array();
         $params['api_id'] = $this->app_id;
-        $params['v'] = '5.52';
+        $params['v'] = '5.74';
         $params['method'] = $method;
         $params['timestamp'] = time();
         $params['format'] = 'json';
         $params['random'] = rand(0,10000);
+        $params['client_secret'] = '58f4d23758f4d23758f4d237a55895de7f558f458f4d237028cfac2836aa492ce14300f';
         ksort($params);
         $sig = '';
         foreach($params as $k=>$v) {
