@@ -17,7 +17,8 @@ if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
         echo json_encode($json_data);
     } else {
         try {
-            $result = $shardDb->queryWithAnswerId('INSERT INTO user_pet SET user_id='.$userId.', house_db_id='.$_POST['houseDbId'].', pet_id='.$_POST['petId'].', time_eat=0, has_new_eat=0');
+            $result = $shardDb->queryWithAnswerId('INSERT INTO user_pet SET user_id='.$userId.', house_db_id='.$_POST['houseDbId'].', 
+                pet_id='.$_POST['petId'].', time_eat=0, has_new_eat=0, has_craft = 0');
             if ($result) {
                 $json_data['message'] = $result[1];
                 echo json_encode($json_data);

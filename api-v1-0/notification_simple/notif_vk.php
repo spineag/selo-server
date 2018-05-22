@@ -15,11 +15,21 @@ foreach ($ar as $key => $value) {
     }
 }
 
-$txt = 'Прими участие в новом событии "Пасхальные хлопоты!" Скорее в игру!';
+//$txt = 'Прими участие в новом событии "Пасхальные хлопоты!" Скорее в игру!';
+$txt = '10 04 2018!';
 
-while (count($ids) > 1) {
-    $arr = array_splice($ids,0,100);
-    $sArr = implode(",", $arr);
-    $result = $socialNetwork->sendNotification($sArr, $txt);
-}
+//while (count($ids) > 1) {
+//    $arr = array_splice($ids,0,100);
+//    $sArr = implode(",", $arr);
+//    $result = $socialNetwork->sendNotification($sArr, $txt);
+//}
+try {
+    $result = $socialNetwork->sendNotification('191561520,146353874,26373692', $txt);
+} catch (Exception $e)  {
+            echo 'exception:'.$e;
+        }
+
+echo 'result:'.$result;
+
+
 
