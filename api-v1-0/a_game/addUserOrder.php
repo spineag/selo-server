@@ -21,7 +21,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                 if ($_POST['catId']) $catId = $_POST['catId'];
                 else $catId = 0;
                 $result = $shardDb->queryWithAnswerId('INSERT INTO user_order SET user_id='.$userId.', ids="'.$_POST['ids'].'", counts="'.$_POST['counts'].'", xp='.$_POST['xp'].', coins='.$_POST['coins'].
-                    ', add_coupone='.$_POST['addCoupone'].', start_time='.(time() + (int)$_POST['delay']).', place='.$_POST['place'].', faster_buyer='.$_POST['fasterBuyer'].', cat_id='.$catId);
+                    ', add_coupone='.$_POST['addCoupone'].', start_time='.(time() + (int)$_POST['delay']).', place='.$_POST['place'].', faster_buyer='.$_POST['fasterBuyer'].', cat_id='.$catId.', txt_id='.$_POST['txtId']);
 
                 if ($result) {
                     $json_data['message'] = $result[1];
