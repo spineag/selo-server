@@ -18,7 +18,9 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             $userId = filter_var($_POST['userId']);
             $shardDb = $app->getShardDb($userId, $channelId);
             try {
-                $result = $shardDb->query('UPDATE user_pet SET time_eat='.$_POST["timeStart"].', has_new_eat = 0, has_craft = '.$_POST["hasCraft"].' WHERE id='.$_POST['petDbId']);
+                $t = $_POST["timeStart"];
+                if (!$t) $t = time();
+                $result = $shardDb->query('UPDATE user_pet SET time_eat='.$t.', has_new_eat = 0, has_craft = '.$_POST["hasCraft"].' WHERE id='.$_POST['petDbId']);
                 if ($result) {
                     $json_data['message'] = '';
                     echo json_encode($json_data);

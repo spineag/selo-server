@@ -8,7 +8,6 @@ var SN = function (social) { // social == 3
     FAPI.init(rParams["api_server"], rParams["apiconnection"],
         function() {
             console.log("Инициализация прошла успешно");
-            //FAPI.UI.setWindowSize(717, 1400); !!!!!
         }, function(error) {
             console.log("Ошибка инициализации");
         });
@@ -147,6 +146,9 @@ function API_callback(method, result, data) {
         } else {
             document.getElementById("selo_game").wallPostCancel();
         }
+    } else {
+        console.log('API_callback data:');
+        console.log(data);
     }
 }
 
