@@ -6,9 +6,9 @@ session_start();
 require $_SERVER['DOCUMENT_ROOT'] . '/php/fb-php-graph-sdk-5.5/src/Facebook/autoload.php';
 
 $verify_token = "kapusta";
-$app_id = "1936104599955682";
-$app_secret = "dd3c1b11a323f01a3ac23a3482724c49";
-$app_token = "1936104599955682|BJ5JAYUV8FSdztyc3MW2lHVbXoU";
+$app_id = "105089583507105";
+$app_secret = "2b62f8a1aed1b7a677a215949d071bcd";
+$app_token = "abb184472ab2fecae9783fbc4bc90afc"; // ***|***
 $server_url = "https://505.ninja/php/api-v1-0/payment/fb_5/";
 
 $pack_id_for_product = [

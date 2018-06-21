@@ -32,12 +32,12 @@ var SN = function (social) { // social == 4
             xfbml      : true,
             cookie     : true,
             status     : true,
-            version    : 'v2.10'
+            version    : 'v3.0'
         });
         FB.AppEvents.logPageView();
         FB.login(function(response) {
+            console.log(response);
             if (response.authResponse) {
-                console.log(response);
                 accessT = response.authResponse.accessToken;
                 uSocialId = response.authResponse.userID;
                 try {
@@ -54,7 +54,7 @@ var SN = function (social) { // social == 4
             } else {
                 console.log('not auth');
             }
-        }, {scope:'user_friends,publish_actions', return_scopes: true});
+        }, {scope:'user_friends', return_scopes: true});
     };
 
     (function(d, s, id){
@@ -234,33 +234,53 @@ var SN = function (social) { // social == 4
         });
     };
 
-    that.makeWallPost = function(uid, message, url){
-        FB.api('me/feed',
-            'post',
-            {   message: '',
-                picture :url,
-                description : message,
-                name: 'WoollyValley 2',
-                link: 'https://apps.facebook.com/105089583507105/'
-            }, function(response) {
-                console.log(response);
-                if (response && !response.error) {
-                    try {
-                        that.flash().wallPostSave();
-                    } catch (err) {
-                        console.log('wallPostSave error: ' + err);
-                        console.log(response);
-                    }
-                } else {
-                    try {
-                        that.flash().wallPostCancel();
-                    } catch (err) {
-                        console.log('wallPostCancel error: ' + err);
-                        console.log(response);
-                    }
+    that.makeWallPost = function(url){
+        // FB.api('me/feed',
+        //     'post',
+        //     {   message: '',
+        //         picture :url,
+        //         description : message,
+        //         name: 'WoollyWorld',
+        //         link: 'https://apps.facebook.com/105089583507105/'
+        //     }, function(response) {
+        //         console.log(response);
+        //         if (response && !response.error) {
+        //             try {
+        //                 that.flash().wallPostSave();
+        //             } catch (err) {
+        //                 console.log('wallPostSave error: ' + err);
+        //                 console.log(response);
+        //             }
+        //         } else {
+        //             try {
+        //                 that.flash().wallPostCancel();
+        //             } catch (err) {
+        //                 console.log('wallPostCancel error: ' + err);
+        //                 console.log(response);
+        //             }
+        //         }
+        //     }
+        // );
+        FB.ui({
+            method: 'share',
+            href: url
+        }, function(response){
+            if (response && !response.error) {
+                try {
+                    that.flash().wallPostSave();
+                } catch (err) {
+                    console.log('wallPostSave error: ' + err);
+                    console.log(response);
+                }
+            } else {
+                try {
+                    that.flash().wallPostCancel();
+                } catch (err) {
+                    console.log('wallPostCancel error2: ' + err);
+                    console.log(response);
                 }
             }
-        );
+        });
     };
 
     that.isInGroup = function(groupId, userId) {

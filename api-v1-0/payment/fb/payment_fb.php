@@ -13,9 +13,9 @@ use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
 
 $verify_token = "kapusta";
-$app_secret = "dd3c1b11a323f01a3ac23a3482724c49";
-$app_token = "567d08996291f371fc7def6a88a79314"; // ?? "YOUR_APP_ACCESS_TOKEN"
-$app_id = "1936104599955682";
+$app_secret = "2b62f8a1aed1b7a677a215949d071bcd";
+$app_token = "abb184472ab2fecae9783fbc4bc90afc"; // ?? "YOUR_APP_ACCESS_TOKEN"
+$app_id = "105089583507105";
 $server_url = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/";
 
 $pack_id_for_product = [
