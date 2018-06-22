@@ -298,16 +298,10 @@ var SN = function (social) { // social == 4
 
     };
 
-    that.makePayment = function(packId, userSocialId) {
+    that.makePayment = function(packStr, userSocialId) {
         // FarmNinjaFB.getVersionForItem("pack" + packId, function(v) { v=version
             var product;
-            if (packId < 13) {
-                product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/pack" + packId + "c.html";
-            } else if (packId == 13) {
-                product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/pack13b.html";
-            } else if (packId == 14) {
-                product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/pack14b.html";
-            }
+            product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
             var requestID = String(userSocialId) + 'z' + String(Date.now());
             console.log('payment product: ' + product);
             SeloNinjaFB.saveTransaction(userSocialId, packId, requestID, browserName, versionBrowser, OS);
