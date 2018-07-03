@@ -74,6 +74,21 @@ try {
                         $resourceItem['craft_xp'] = $resource['craft_xp'];
                         $resourceItem['cost_skip'] = $resource['cost_skip'];
                         break;
+                    case 37: // RESOURCE CAFE
+//                    $result = $mainDb->select("data_resource", "*", "resource_id='".$dict['id']."'");
+                        $result = $mainDb->query("SELECT * FROM data_cafe_resource WHERE resource_id ='" . $dict['id'] . "'");
+                        $resource = $result->fetch();
+                        if (empty($resource)) {
+                            $json_data['id'] = 3;
+                            $json_data['status'] = 's295';
+                            throw new Exception("Bad request to DB!");
+                        }
+                        $resourceItem['energy_count'] = $resource['energy_count'];
+                        $resourceItem['ingredients_id'] = $resource['ingredients_id'];
+                        $resourceItem['ingredients_count'] = $resource['ingredients_count'];
+                        $resourceItem['craft_xp'] = $resource['craft_xp'];
+                        $resourceItem['cost_skip'] = $resource['cost_skip'];
+                        break;
                     default:
                         break;
                 }
