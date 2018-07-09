@@ -76,6 +76,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                 $user['cafe_time_energy'] = $uS['cafe_time_energy'];
                 $user['coins_max'] = $uS['coins_max'];
                 $user['count_stand'] = $uS['count_stand'];
+                $user['decor_count'] = $uS['decor_count'];
 
                 $check = (int)$user['ambar_max'] + (int)$user['sklad_max'] + (int)$user['ambar_level'] + (int)$user['sklad_level'] + (int)$user['hard_count'] + (int)$user['soft_count'] +
                     (int)$user['yellow_count'] + (int)$user['green_count'] + (int)$user['red_count'] + (int)$user['blue_count'] + (int)$user['level'] + (int)$user['xp'] + (int)$user['count_cats'] +
