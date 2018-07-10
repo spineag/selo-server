@@ -63,11 +63,7 @@ if (isset($_POST['userSocialId']) && !empty($_POST['userSocialId'])) {
                 $arrMainPack = [];
                 $arrMainPack['id'] = $packId;
 
-                if ($userLevel >= 20) {
-                    $countCells = 4;
-                } else {
-                    $countCells = 3;
-                }
+                $countCells = 4;
                 $arrPacks = [];
                 for ($i = 0; $i < 3; $i++) {
 //                    if ($userLevel >= 20) {

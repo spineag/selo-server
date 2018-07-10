@@ -99,6 +99,7 @@ try {
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
                         $buildingItem['daily_bonus'] = $decor['daily_bonus'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 9: // DECOR_FULL_FENCE
                         $result = $mainDb->query("SELECT * FROM data_decor WHERE building_id =" . $dict['id']);
@@ -115,6 +116,7 @@ try {
                         $buildingItem['currency'] = $decor['currency_type'];
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 10: // DECOR_POST_FENCE
                         $result = $mainDb->query("SELECT * FROM data_decor WHERE building_id =" . $dict['id']);
@@ -131,6 +133,7 @@ try {
                         $buildingItem['currency'] = $decor['currency_type'];
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 11: // FABRICA
 //                    $result = $mainDb->select("data_fabrica", "*", "building_id='".$dict['id']."'");
@@ -206,7 +209,7 @@ try {
                         $buildingItem['delta_cost'] = $decor['delta_cost'];
                         $buildingItem['filter'] = $decor['filter_type'];
                         $buildingItem['currency'] = $decor['currency_type'];
-
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 16: // FARM
 //                    $result = $mainDb->select("data_farm", "*", "building_id='".$dict['id']."'");
@@ -334,6 +337,7 @@ try {
                         $buildingItem['cat_need'] = $decor['cat_need'];
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 31: // DECOR_FENCE_GATE
                         $result = $mainDb->query("SELECT * FROM data_decor WHERE building_id =" . $dict['id']);
@@ -350,6 +354,7 @@ try {
                         $buildingItem['filter'] = $decor['filter_type'];
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     case 32: // DECOR_FENCE_ARKA
                         $result = $mainDb->query("SELECT * FROM data_decor WHERE building_id =" . $dict['id']);
@@ -366,6 +371,7 @@ try {
                         $buildingItem['filter'] = $decor['filter_type'];
                         $buildingItem['group'] = $decor['filter_group'];
                         $buildingItem['color'] = $decor['color'];
+                        $buildingItem['rating_count'] = $decor['rating_count'];
                         break;
                     default:
                         break;

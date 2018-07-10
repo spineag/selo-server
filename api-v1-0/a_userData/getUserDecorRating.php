@@ -17,23 +17,19 @@ $allShardDb = $app->getAllShardsDb($channelId);
 try {
     $partyALL = [];
     foreach ($allShardDb as $key => $shard) {
-        $result = $shard->query("SELECT * FROM user_cafe_rating");
+        $result = $shard->query("SELECT * FROM user_info");
         $ar = $result->fetchAll();
         foreach ($ar as $key2 => $k) {
             $pa = [];
-            $pa['id'] = $k['id'];
             $pa['user_id'] = $k['user_id'];
-            $pa['count'] = $k['count'];
+            $pa['decor_count'] = $k['decor_count'];
             $partyALL[] = $pa;
         }
     }
     $countYour = -1;
-    $countYourItem = -1;
     uasort($partyALL, 'cmp');
     foreach ($partyALL as $key => $party) {
-        if((string)$party['user_id'] == (string)$_POST['userId']) {
-            $countYourItem = $party['count'];
-        }break;
+        if((string)$party['user_id'] == (string)$_POST['userId']) break;
         $countYour ++;
     }
     array_splice($partyALL, 20);
@@ -44,7 +40,7 @@ try {
         $res = [];
         $res['id'] = $party['id'];
         $res['user_id'] = $party['user_id'];
-        $res['count'] = $party['count'];
+        $res['decor_count'] = $party['decor_count'];
         $res['social_id'] = $partyTWO['social_id'];
         $res['photo_url'] = $partyTWO['photo_url'];
         $res['level'] = $partyTWO['level'];
@@ -54,7 +50,6 @@ try {
     }
     $res = [];
     $res['user_rating'] = $countYour;
-    $res['user_count'] = $countYourItem;
     $resp[] = $res;
 
     $json_data['message'] = $resp;
@@ -68,7 +63,7 @@ catch (Exception $e)
 }
 
 function cmp($a, $b) {
-    if ((int)$a['count'] > (int)$b['count']) {
+    if ((int)$a['decor_count'] > (int)$b['decor_count']) {
         return -1;
     }
     return 1;
