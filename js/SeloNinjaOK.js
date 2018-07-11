@@ -13,7 +13,6 @@ var SeloNinjaOK = {
             channel: this.channel,
             gacid: this.getUserGAcid()
         };
-
         var params = {
             allowFullscreen: "true",
             allowFullScreenInteractive: "true",
@@ -51,10 +50,10 @@ var SeloNinjaOK = {
                             '</div>' +
                             '</div>');
                     } else {
-                        swfobject.embedSWF('client_ok/selo' + this.version + '.swf', 'flash_container', '100%', '100%', '13.0', null, flashvars, params, attributes, null);
+                        swfobject.embedSWF('client_ok/selo' + this.version + '.swf', 'flash_container', '100%', 764, '13.0', null, flashvars, params, attributes, null);
                         document.getElementById("selo_game").style.display = "block";
-                        window.onresize = SeloNinjaOK.bodyResize;
-                        setTimeout(SeloNinjaOK.bodyResizeInit, 1000);
+                        //window.onresize = sn.getPageInfo();  not work on OK :(
+                        //setTimeout(SeloNinjaOK.bodyResizeInit, 1000);
                     }
                 },
                 errrep: true,
@@ -63,29 +62,16 @@ var SeloNinjaOK = {
                 }
             });
         } else {
-            swfobject.embedSWF('client_ok/selo' + this.version + '.swf', 'flash_container', '100%', '100%', '13.0', null, flashvars, params, attributes, null);
+            swfobject.embedSWF('client_ok/selo' + this.version + '.swf', 'flash_container', '100%', 764, '13.0', null, flashvars, params, attributes, null);
             document.getElementById("selo_game").style.display = "block";
-            window.onresize = SeloNinjaOK.bodyResize;
-            setTimeout(SeloNinjaOK.bodyResizeInit, 1000);
+           // window.onresize = sn.getPageInfo();  not work on OK :(
         }
     },
 
-    bodyResizeInit: function(event) {
-        FAPI.UI.getPageInfo();
-        var h = $('.game_body').height();
-        console.log('init h: ' + h);
-        if (h) SeloNinjaOK.bodyResize(null);
-        else setTimeout(SeloNinjaOK.bodyResizeInit, 1000);
-    },
-
-    bodyResize: function(event) {
-        var h = $('.game_body').height() - 28;
-        if (h < 500) h = 500;
-        if (h > 1000) h = 1000;
-        console.log('h: ' + h);
-        $('#selo_game').height(h);
-        //FAPI.UI.setWindowSize
-    },
+    // bodyResizeInit: function(event) {
+    //     if ($('.game_body').height()) sn.getPageInfo();
+    //     else setTimeout(SeloNinjaOK.bodyResizeInit, 1000);
+    // },
 
     reload: function () {
         $('#gameContainer').html('<div id="flash_container">' +

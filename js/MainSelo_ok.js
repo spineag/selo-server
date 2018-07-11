@@ -15,7 +15,17 @@ var SN = function (social) { // social == 3
     that.flash = function(){
         return document.getElementById("selo_game");
     };
-    
+
+    // that.getPageInfo = function(){
+    //     FAPI.UI.getPageInfo();
+    // };
+    // that.setPageHeight = function(w, h) {
+    //     //FAPI.UI.setWindowSize(w, h + 40); https://apiok.ru/dev/sdk/js/ui.setWindowSize  - not work
+    //     console.log('try set Height: ' + h);
+    //     //$('.game_body').height(h);
+    //     //$('#selo_game').height(h-40);
+    // };
+
     that.getProfile = function(userSocialId, params) {
         var fields = params.join();
         console.log('OK: try get user profile');
@@ -146,9 +156,20 @@ function API_callback(method, result, data) {
         } else {
             document.getElementById("selo_game").wallPostCancel();
         }
+    } else if (method == 'getPageInfo') {
+        var d = JSON.parse(data);
+        var h = parseInt(d.clientHeight);
+        // sn.setPageHeight(parseInt(d.clientWidth), h);
+        SeloNinjaOK.initOK(h-40);
     } else {
         console.log('API_callback data:');
         console.log(data);
     }
 }
 
+//{"clientWidth":1766,"clientHeight":821,"scrollLeft":0,"scrollTop":0,"offsetLeft":0,"offsetTop":76,"innerHeight":821,"innerWidth":1781}
+//h: 649
+//{"clientWidth":1319,"clientHeight":715,"scrollLeft":0,"scrollTop":0,"offsetLeft":0,"offsetTop":76,"innerHeight":715,"innerWidth":1334}
+//init h: 677
+//h: 649
+//{"clientWidth":1319,"clientHeight":946,"scrollLeft":0,"scrollTop":0,"offsetLeft":0,"offsetTop":76,"innerHeight":946,"innerWidth":1334}
