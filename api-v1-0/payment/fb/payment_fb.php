@@ -13,13 +13,13 @@ use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
 
 $verify_token = "kapusta";
-$app_secret = "2b62f8a1aed1b7a677a215949d071bcd";
-$app_token = "abb184472ab2fecae9783fbc4bc90afc"; // ?? "YOUR_APP_ACCESS_TOKEN"
 $app_id = "105089583507105";
+$app_secret = "2b62f8a1aed1b7a677a215949d071bcd";
+$app_token = "105089583507105|2b62f8a1aed1b7a677a215949d071bcd";
 $server_url = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/";
 
 $pack_id_for_product = [
-    $server_url.'pack1a.html' => 1,
+    $server_url.'pack1.html' => 1,
     $server_url.'pack2.html' => 2,
     $server_url.'pack3.html' => 3,
     $server_url.'pack4.html' => 4,
@@ -30,7 +30,8 @@ $pack_id_for_product = [
     $server_url.'pack9.html' => 9,
     $server_url.'pack10.html' => 10,
     $server_url.'pack11.html' => 11,
-    $server_url.'pack12.html' => 12
+    $server_url.'pack12.html' => 12,
+    $server_url.'pack13.html' => 13
 ];
 
 FacebookSession::setDefaultApplication(

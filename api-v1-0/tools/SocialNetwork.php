@@ -144,9 +144,9 @@ class OkSocialNetwork implements SocialNetworkInterface {
     function __construct($socialNetworkParameters){
 //        $this->app_id = $socialNetworkParameters["api_id"];
 //        $this->secret_key = $socialNetworkParameters["secret_key"];
-        $this->app_id = "1248696832";
-        $this->secret_key = "864364A475EBF25367549586";
-        $this->public_key = "CBALJOGLEBABABABA";
+        $this->app_id = "1266692864";
+        $this->secret_key = "EC804AAB7DD4B598C4F2C3C5";
+        $this->public_key = "CBAEDBIMEBABABABA";
     }
     public function getUsers($socialNetworkUid) {
         $path = "http://api.odnoklassniki.ru/fb.do?";

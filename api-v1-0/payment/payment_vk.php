@@ -20,15 +20,6 @@ if (strpos($item, 'item') !== false) {
         $r['cost_for_real'] = $r['new_cost'];
         $r['count_getted'] = 'Акция';
         $ar[] = $r;
-//    } else if ($input['item'] == 'item_14') {
-//        $db_r = $mainDb->query('SELECT * FROM data_sale_pack');
-//        $r = $db_r->fetch();
-//        $r['item_name'] = 'item_14';
-//        $r['id'] = '14';
-//        $r['url'] = 'http://505.ninja/selo-project/images/icons/starter_pack_icon.png';
-//        $r['cost_for_real'] = $r['new_cost'];
-//        $r['count_getted'] = 'Акция';
-//        $ar[] = $r;
     } else {
         $db_r = $mainDb->query('SELECT * FROM data_buy_money');
         while ($r = $db_r->fetch($db_r)) {
@@ -156,9 +147,6 @@ if ($sig != md5($str . $secret_key)) {
                     );
                 } else {
                     $data = '[E' . $result . '] - SID: ' . $input['user_id'] . ', ITEM: ' . $input['item'] . ', ITEM_ID: ' . $input['item_id'] . ', PRICE: ' . $input['item_price'] . ', ITEM_CURRENCY_AMOUNT: ' . $input['item_currency_amount'] . ";\r\n";
-
-                    //callbackHelper::errorLog("../error/error_payment.log", $data);
-
                     $response['error'] = array(
                         'error_code' => $error,
                         'error_msg' => '',
@@ -175,10 +163,4 @@ if ($sig != md5($str . $secret_key)) {
             break; // order_status_change && order_status_change_test
     }
 }
-//if ($input['item_id'] == 12) {
-//    $json_data['id'] = 12;
-//    $json_data['status'] = 's221';
-//    $json_data['message'] = 'Lolololololol';
-//    echo json_encode($json_data);
-//}
 echo json_encode($response);

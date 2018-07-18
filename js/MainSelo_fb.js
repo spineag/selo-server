@@ -304,7 +304,7 @@ var SN = function (social) { // social == 4
             product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
             var requestID = String(userSocialId) + 'z' + String(Date.now());
             console.log('payment product: ' + product);
-            SeloNinjaFB.saveTransaction(userSocialId, packId, requestID, browserName, versionBrowser, OS);
+            SeloNinjaFB.saveTransaction(userSocialId, packStr, requestID, browserName, versionBrowser, OS);
             FB.ui({
                 method: 'pay',
                 action: 'purchaseitem',

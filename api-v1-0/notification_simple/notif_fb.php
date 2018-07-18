@@ -18,20 +18,12 @@ $fb = new Facebook\Facebook([
 ]);
 
 //$lastTime = time() - 259200; // 3 days
-$txt = 'Molly needs lots of milk! Hurry up to collect as much milk as you can. Eventually you can exchange it for unique prizes.';
+//$txt = 'Hello! Its a test message 33333';
 
 //$arAll = [];
-//$result = $mainDb->query('SELECT social_id FROM users WHERE last_visit_date >'.$lastTime.' AND level >= 6');
+//$result = $mainDb->query('SELECT social_id FROM users WHERE level >= 6');
 //$ar = $result->fetchAll();
 //$arAll = $ar;
-//
-//$result = $mainDb->query('SELECT social_id FROM users WHERE timezone >= -10 AND timezone <= -4');
-//$ar = $result->fetchAll();
-//$arAll = array_merge($arAll, $ar);
-//
-//$result = $mainDb->query('SELECT social_id FROM users WHERE sale_pack = 1 OR starter_pack = 1');
-//$ar = $result->fetchAll();
-//$arAll = array_merge($arAll, $ar);
 //
 //$countSend = 0;
 //$errors = 0;
@@ -51,31 +43,13 @@ $txt = 'Molly needs lots of milk! Hurry up to collect as much milk as you can. E
 //        }
 //    }
 //}
+try {
+    $response = $fb->post('/1440177116062575/notifications', array('href'=>'href', 'template'=>'fra!', 'access_token'=>$app_token));
+    echo 'result:'.$response;
+} catch (Exception $e) {
+    echo $e;
+}
 //echo 'count:'.$countSend.'  errors:'.$errors;
 
-$arAll = [];
-$result = $mainDb->query('SELECT social_id FROM users');
-$ar = $result->fetchAll();
-$arAll = $ar;
-$countSend = 0;
-$errors = 0;
-
-while (count($arAll) > 1) {
-    usleep(200000); // === 0.2 sec
-    $arr = array_splice($arAll,0,50);
-    if ($arr) {
-        foreach ($arr as $key => $value) {
-            try {
-                if ($value['social_id'] && $value['social_id'] != 'null' && $value['social_id'] != '1') {
-                    $sendNotif = $fb->post('/' . $value['social_id'] . '/notifications', array('href' => '?notif', 'template' => $txt), $app_token);
-                    $countSend++;
-                }
-            } catch (Exception $e) {
-                    $errors++;
-            }
-        }
-    }
-}
-echo 'count:'.$countSend.'  errors:'.$errors;
 
 

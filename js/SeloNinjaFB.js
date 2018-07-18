@@ -53,7 +53,7 @@ var SeloNinjaFB = {
                 id: "selo_game",
                 name: "selo_game"
             };
-            swfobject.embedSWF('client_fb/selo' + this.version + '.swf', 'flash_container', '100%', '640px', '13.0', null, flashvars, params, attributes, this.callbackFn);
+            swfobject.embedSWF('client_fb/selo' + this.version + '.swf' + '?' +  Math.floor(Math.random() * 1000000), 'flash_container', '100%', '640px', '13.0', null, flashvars, params, attributes, this.callbackFn);
         }
     },
 
