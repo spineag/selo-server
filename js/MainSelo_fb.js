@@ -54,7 +54,8 @@ var SN = function (social) { // social == 4
             } else {
                 console.log('not auth');
             }
-        }, {scope:'user_friends', return_scopes: true});
+        // }, {scope:'user_friends', return_scopes: true});
+        });
     };
 
     (function(d, s, id){
@@ -299,42 +300,39 @@ var SN = function (social) { // social == 4
     };
 
     that.makePayment = function(packStr, userSocialId) {
-        // FarmNinjaFB.getVersionForItem("pack" + packId, function(v) { v=version
-            var product;
-            product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
-            var requestID = String(userSocialId) + 'z' + String(Date.now());
-            console.log('payment product: ' + product);
-            SeloNinjaFB.saveTransaction(userSocialId, packStr, requestID, browserName, versionBrowser, OS);
-            FB.ui({
-                method: 'pay',
-                action: 'purchaseitem',
-                product: product,
-                request_id: requestID
-            }, function (response) {
-                console.log('Payment completed', response);
-                if (response.status) {
-                    if (response.status == 'completed') {
-                        that.flash().successPayment();
-                        SeloNinjaFB.finishTransaction(requestID, 'complete');
-                    } else if (response.status == 'initiated') {
-                        console.log('payment initiated status');
-                    } else if (response.status == 'failed') {
-                        that.flash().failPayment();
-                        SeloNinjaFB.finishTransaction(requestID, 'failed');
-                    } else {
-                        console.log('response.status: ' + response.status);
-                        that.flash().failPayment();
-                        SeloNinjaFB.finishTransaction(requestID, response.status);
-                    }
-                } else if (response.error_code) {
+        var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
+        var requestID = String(userSocialId) + 'z' + String(Date.now());
+        console.log('payment product: ' + product);
+        SeloNinjaFB.saveTransaction(userSocialId, packStr, requestID, browserName, versionBrowser, OS);
+        FB.ui({
+            method: 'pay',
+            action: 'purchaseitem',
+            product: product,
+            request_id: requestID
+        }, function (response) {
+            console.log('Payment completed', response);
+            if (response.status) {
+                if (response.status == 'completed') {
+                    that.flash().successPayment();
+                    SeloNinjaFB.finishTransaction(requestID, 'complete');
+                } else if (response.status == 'initiated') {
+                    console.log('payment initiated status');
+                } else if (response.status == 'failed') {
                     that.flash().failPayment();
-                    SeloNinjaFB.finishTransaction(requestID, response.error_code + ': ' +response.error_message);
+                    SeloNinjaFB.finishTransaction(requestID, 'failed');
                 } else {
+                    console.log('response.status: ' + response.status);
                     that.flash().failPayment();
-                    SeloNinjaFB.finishTransaction(requestID, 'cancel');
+                    SeloNinjaFB.finishTransaction(requestID, response.status);
                 }
-            });
-        // });
+            } else if (response.error_code) {
+                that.flash().failPayment();
+                SeloNinjaFB.finishTransaction(requestID, response.error_code + ': ' +response.error_message);
+            } else {
+                that.flash().failPayment();
+                SeloNinjaFB.finishTransaction(requestID, 'cancel');
+            }
+        });
     }
 };
 
