@@ -300,7 +300,8 @@ var SN = function (social) { // social == 4
     };
 
     that.makePayment = function(packStr, userSocialId) {
-        var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
+        if (packStr == 'item7' || packStr == 'item8' || packStr == 'item9' || packStr == 'item10' || packStr == 'item11' || packStr == 'item12') var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + "a.html";
+        else var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
         var requestID = String(userSocialId) + 'z' + String(Date.now());
         console.log('payment product: ' + product);
         SeloNinjaFB.saveTransaction(userSocialId, packStr, requestID, browserName, versionBrowser, OS);
