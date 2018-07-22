@@ -99,9 +99,12 @@ var SN = function (social) { // social == 4
     };
 
     that.getProfile = function(userSocialId) {
+        console.log('start getProfile (/me) for userSocialId: ' + userSocialId);
         FB.api("/me",
             {access_token: accessT},
             function (response) {
+                console.log('/me response:');
+                console.log(response);
                 if (response && !response.error) {
                     userSocialId = response.id;
                     var u = {};
@@ -109,6 +112,8 @@ var SN = function (social) { // social == 4
                         {access_token: accessT},
                         {fields: 'last_name,first_name,gender,birthday,picture.width(100).height(100),locale,timezone'},
                         function (response) {
+                            console.log('getProfile (/userSocialId) callback:');
+                            console.log(response);
                             if (response && !response.error) {
                                 u.first_name = response.first_name;
                                 u.last_name = response.last_name;
