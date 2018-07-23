@@ -25,7 +25,7 @@
     </script>
     <script async src='//www.google-analytics.com/analytics.js' onload='initGA()'></script>
 
-    <script> function getProfile(userSocialId) { console.log('index.html:: getProfile'); sn.getProfile(userSocialId); }  </script>
+    <script> function getProfile(userSocialId) { sn.getProfile(userSocialId); }  </script>
     <script> function getAllFriends(userSocialId) { sn.getAllFriends(userSocialId); }  </script>
     <script> function getFriendsByIds(uids) { sn.getFriendsByIds(uids); }  </script>
     <script> function getAppUsers(userSocialId) { sn.getAppUsers(userSocialId); }  </script>
@@ -40,6 +40,7 @@
     <script> function reloadGame() { SeloNinjaFB.reload(); }  </script>
     <script> function hideLanguage() { SeloNinjaFB.hideLanguage(); }  </script>
     <script> function makePayment(packId, userSocialId) { console.log('makePayment packId: ' + packId); sn.makePayment(packId, userSocialId); }  </script>
+    <script> function fromFlashToConsole(st) { console.log('client: ' + st); }  </script>
 
 </head>
 

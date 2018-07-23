@@ -99,7 +99,6 @@ var SN = function (social) { // social == 4
     };
 
     that.getProfile = function(userSocialId) {
-        console.log('start getProfile (/me) for userSocialId: ' + userSocialId);
         FB.api("/me",
             {access_token: accessT},
             function (response) {
