@@ -102,8 +102,6 @@ var SN = function (social) { // social == 4
         FB.api("/me",
             {access_token: accessT},
             function (response) {
-                console.log('/me response:');
-                console.log(response);
                 if (response && !response.error) {
                     userSocialId = response.id;
                     var u = {};
@@ -111,8 +109,6 @@ var SN = function (social) { // social == 4
                         {access_token: accessT},
                         {fields: 'last_name,first_name,gender,birthday,picture.width(100).height(100),locale,timezone'},
                         function (response) {
-                            console.log('getProfile (/userSocialId) callback:');
-                            console.log(response);
                             if (response && !response.error) {
                                 u.first_name = response.first_name;
                                 u.last_name = response.last_name;
@@ -304,8 +300,9 @@ var SN = function (social) { // social == 4
     };
 
     that.makePayment = function(packStr, userSocialId) {
-        if (packStr == 'item7' || packStr == 'item8' || packStr == 'item9' || packStr == 'item10' || packStr == 'item11' || packStr == 'item12') var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + "a.html";
-        else var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
+        if (packStr == 'item7' || packStr == 'item8' || packStr == 'item9' || packStr == 'item10' || packStr == 'item11' || packStr == 'item12' || packStr == 'item13')
+            packStr+='a';
+        var product = "https://505.ninja/selo-project/php/api-v1-0/payment/fb/" + packStr + ".html";
         var requestID = String(userSocialId) + 'z' + String(Date.now());
         console.log('payment product: ' + product);
         SeloNinjaFB.saveTransaction(userSocialId, packStr, requestID, browserName, versionBrowser, OS);
