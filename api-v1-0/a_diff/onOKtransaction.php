@@ -15,8 +15,10 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             if ($result) {
                 $q = $result->fetch();
                 $res = 'FIND';
-                $result = $mainDb->query('DELETE FROM transaction_lost WHERE id=' . $q['id']);
-                $result = $mainDb->query('UPDATE transactions SET getted=1 WHERE uid='.$userSocialId.' AND unitime='.$q['unitime']);
+                if ($q) {
+                    if ($q['id']) $result = $mainDb->query('DELETE FROM transaction_lost WHERE id=' . $q['id']);
+                    if ($q['unitime']) $result = $mainDb->query('UPDATE transactions SET getted=1 WHERE uid=' . $userSocialId . ' AND unitime=' . $q['unitime']);
+                }
             } else {
                 $res = 'NO_ROW'; // no row in BD
             }
@@ -25,8 +27,10 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             $result = $mainDb->query('SELECT * FROM transaction_lost WHERE uid=' . $userSocialId . ' AND product_code=' . $_POST['productCode'].' ORDER BY unitime DESC LIMIT 1');
             if ($result) {
                 $q = $result->fetch();
-                $result = $mainDb->query('DELETE FROM transaction_lost WHERE id='.$q['id']);
-                $result = $mainDb->query('UPDATE transactions SET getted=1 WHERE product_code='.$_POST['productCode'].' AND unitime='.$q['unitime']);  // not use userSocialId because it has bugs.. hz why
+                if ($q) {
+                    if ($q['id']) $result = $mainDb->query('DELETE FROM transaction_lost WHERE id=' . $q['id']);
+                    if ($q['unitime']) $result = $mainDb->query('UPDATE transactions SET getted=1 WHERE product_code=' . $_POST['productCode'] . ' AND unitime=' . $q['unitime']);  // not use userSocialId because it has bugs.. hz why
+                }
             }
         }
 

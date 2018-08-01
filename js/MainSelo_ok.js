@@ -91,11 +91,11 @@ var SN = function (social) { // social == 3
 
     that.showInviteWindowAll = function(userSocialId) {
         console.log('OK: try get showInviteWindowAll');
-        FAPI.UI.showInvite("Приглашаю посетить игру Умелые Лапки.");
+        FAPI.UI.showInvite("Приглашаю посетить игру Вязаный мир.");
     };
 
     that.showPayment = function(txt, txt2, id, price) {
-        console.log('OK: try get showPayment');
+        console.log('OK: try get showPayment for id: ' + id + '  and price: ' + price);
         FAPI.UI.showPayment(txt, txt2, id, price, null, null, "ok", "true");
     };
 
