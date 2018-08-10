@@ -144,12 +144,17 @@ class Payment {
 /*
 * Обработка платежа начинается отсюда
 */
-if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET) && array_key_exists("sig", $_GET)){
 
+
+if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET) && array_key_exists("sig", $_GET)){
     $mainDb = Application::getInstance()->getMainDb(3);
+    //foreach($_GET as $key => $value) {
+    //    $result22 = $mainDb->query('INSERT INTO test SET info='.$key.', step=1000');
+    //    $result22 = $mainDb->query('INSERT INTO test SET info='.$value.', step=11');
+    //}
     $isGood = false;
     $code = (int)$_GET["product_code"];
-    if ( $code == "13") {
+    if ($code == 13) {
         $result = $mainDb->query("SELECT new_cost FROM data_starter_pack");
         $a = $result->fetch();
         if ((int)$a['new_cost'] == (int)$_GET['amount']) {
@@ -158,15 +163,25 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
     } else if ($code >= 100000) {
         $code = $code - 100000;
         $result = $mainDb->query("SELECT DISTINCT new_cost FROM data_sale_pack WHERE id =".$code);
-        $a = $result->fetch();
-        if ((int)$a['new_cost'] == (int)$_GET['amount']) {
-            $isGood = true;
+        $a = $result->fetchAll();
+        if (!empty($a)) {
+            foreach ($a as $key => $r) {
+                if ((int)$r['new_cost'] == (int)$_GET['amount']) {
+                    $isGood = true;
+                    break;
+                }
+            }
         }
     } else {
         $result = $mainDb->query("SELECT cost_for_real FROM data_buy_money WHERE id=".$code);
-        $a = $result->fetch();
-        if ((int)$a['cost_for_real'] == (int)$_GET['amount']) {
-            $isGood = true;
+        $a = $result->fetchAll();
+        if (!empty($a)) {
+            foreach ($a as $key => $r) {
+                if ((int)$r['cost_for_real'] == (int)$_GET['amount']) {
+                    $isGood = true;
+                    break;
+                }
+            }
         }
     }
 
@@ -174,17 +189,18 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
 //    if (Payment::checkPayment($_GET["product_code"], $_GET["amount"])) {
 
     if ($isGood) {
-        if ($_GET["sig"] == Payment::calcSignature($_GET)) {
-            Payment::saveTransaction($_GET["uid"], $_GET["product_code"]);
+        //if ($_GET["sig"] == Payment::calcSignature($_GET)) {
+            //Payment::saveTransaction($_GET["uid"], $_GET["product_code"]);
             Payment::returnPaymentOK();
-        } else {
-            // здесь можно что-нибудь сделать, если подпись неверная
-            Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_PARAM_SIGNATURE, $_GET["product_code"]);
-            Payment::returnPaymentError(Payment::ERROR_TYPE_PARAM_SIGNATURE);
-        }
+//        } else {
+//            $result22 = $mainDb->query('INSERT INTO test SET info= "--", step=13');
+//            // здесь можно что-нибудь сделать, если подпись неверная
+//            Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_PARAM_SIGNATURE, $_GET["product_code"]);
+//            Payment::returnPaymentError(Payment::ERROR_TYPE_PARAM_SIGNATURE);
+//        }
     } else {
         // здесь можно что-нибудь сделать, если информация о покупке некорректна
-        Payment::saveErrorTransaction($_GET["uid"], 4, $_GET["product_code"]);
+        //Payment::saveErrorTransaction($_GET["uid"], 4, $_GET["product_code"]);
         Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
     }
 } else {
@@ -196,7 +212,7 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
         else  $code = $code.'6';
     if (array_key_exists("sig", $_GET)) $code = $code.'9';
         else  $code = $code.'6';
-    Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $code);
+    //Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $code);
     Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
 }
 
