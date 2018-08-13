@@ -24,6 +24,7 @@ var SN = function (social) { // social == 4
                     { string: navigator.userAgent, subString: "iPhone", identity: "iPhone/iPod" },
                     { string: navigator.platform, subString: "Linux", identity: "Linux" } ];
 
+
     console.log('init fb social');
 
     window.fbAsyncInit = function() {
@@ -38,6 +39,7 @@ var SN = function (social) { // social == 4
         FB.login(function(response) {
             console.log(response);
             if (response.authResponse) {
+                SeloNinjaFB.setLanguage(2);
                 accessT = response.authResponse.accessToken;
                 uSocialId = response.authResponse.userID;
                 try {
@@ -125,11 +127,11 @@ var SN = function (social) { // social == 4
                                 } else {
                                     u.timezone = 0;
                                 }
-                                if (u.locale == 'ru_RU' || u.locale == 'be_BY' || u.locale == 'uk_UA') {
-                                    SeloNinjaFB.setLanguage(1);
-                                } else {
-                                    SeloNinjaFB.setLanguage(2);
-                                }
+                                //if (u.locale == 'ru_RU' || u.locale == 'be_BY' || u.locale == 'uk_UA') {
+                                //    SeloNinjaFB.setLanguage(1);
+                                //} else {
+                                //    SeloNinjaFB.setLanguage(2);
+                                //}
                                 try {
                                     that.flash().getProfileHandler(u);
                                 } catch (err) {

@@ -160,10 +160,10 @@ var SeloNinjaFB = {
 
     chooseLanguage: function(v) {
         hideLanguage();
-        if (v != this.language) {
+        //if (v != this.language) {
             console.log('change language to: ' + v);
             document.getElementById("selo_game").changeLanguage(v);
-        }
+        //}
     },
 
     saveTransaction: function(usid, packId, requestId, browserName, versionBrowser, OS) {
