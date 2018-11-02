@@ -221,6 +221,7 @@ try {
                             throw new Exception("Bad request to DB!");
                         }
                         $buildingItem['cost'] = $farm['cost'];
+                        $buildingItem['cost_separate'] = $farm['cost_separate'];
                         $buildingItem['currency'] = $farm['currency'];
                         $buildingItem['block_by_level'] = $farm['block_by_level'];
                         $buildingItem['inner_house_x'] = $farm['inner_house_x'];
