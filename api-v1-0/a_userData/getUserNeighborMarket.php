@@ -43,13 +43,17 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
                             if ($count >=2) break;
                         }
                     }
-
-                    $result = $mainDb->query("SELECT id FROM resource WHERE resource_type = 5 AND block_by_level <=".$level." ORDER BY RAND() LIMIT 6");
+                    $arr2[] = 31;
+                    $arr2[] = 32;
+                    $arr2[] = 109;
+                    $arrIns = [31, 32, 109];
+                    $arrInsIds = implode(',', array_values($arrIns));
+                    $result = $mainDb->query("SELECT id FROM resource WHERE resource_type = 5 AND block_by_level <=".$level." AND id NOT IN (".$arrInsIds.") ORDER BY RAND() LIMIT 3");
                     $plants = $result->fetchAll();
                     foreach ($plants as $value => $p) {
                         $arr2[] = $p['id'];
                     }
-                    for ($i = 0; $i < 6; $i++) {
+                    for ($i = 0; $i < 3; $i++) {
                         $arr2[]= -1;
                     }
 

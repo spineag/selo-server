@@ -190,7 +190,7 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
 
     if ($isGood) {
         //if ($_GET["sig"] == Payment::calcSignature($_GET)) {
-            //Payment::saveTransaction($_GET["uid"], $_GET["product_code"]);
+            Payment::saveTransaction($_GET["uid"], $_GET["product_code"]);
             Payment::returnPaymentOK();
 //        } else {
 //            $result22 = $mainDb->query('INSERT INTO test SET info= "--", step=13');
@@ -200,7 +200,7 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
 //        }
     } else {
         // здесь можно что-нибудь сделать, если информация о покупке некорректна
-        //Payment::saveErrorTransaction($_GET["uid"], 4, $_GET["product_code"]);
+        Payment::saveErrorTransaction($_GET["uid"], 4, $_GET["product_code"]);
         Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
     }
 } else {
@@ -212,7 +212,7 @@ if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET)
         else  $code = $code.'6';
     if (array_key_exists("sig", $_GET)) $code = $code.'9';
         else  $code = $code.'6';
-    //Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $code);
+    Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $code);
     Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
 }
 
