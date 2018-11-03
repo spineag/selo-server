@@ -42,6 +42,7 @@ try {
 //                $animalALL['cost_force'] = $recipe['cost_force'];
                 $animalALL['cost_new'] = $recipe['cost_new'];
                 $animalALL['text_id'] = $recipe['text_id'];
+                $animalALL['levels'] = $recipe['levels'];
                 $resp[] = $animalALL;
                 //new new new
             }
