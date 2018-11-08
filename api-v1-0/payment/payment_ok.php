@@ -10,17 +10,13 @@ class Payment {
     const ERROR_TYPE_UNKNOWN = 1;
     const ERROR_TYPE_SERVISE = 2;
     const ERROR_TYPE_CALLBACK_INVALID_PYMENT = 3;
+    const ERROR_CHECK_CODE = 4;
     const ERROR_TYPE_SYSTEM = 9999;
     const ERROR_TYPE_PARAM_SIGNATURE = 104;
 
-    // в эти переменные следует записать открытый и секретный ключи приложения
     const APP_PUBLIC_KEY = "CBAEDBIMEBABABABA";
     const APP_SECRET_KEY = "EC804AAB7DD4B598C4F2C3C5";
 
-    // массив пар код продукта => цена
-    private static $catalog = array();
-
-    // массив пар код ошибки => описание
     private static $errors = array(
         1 => "UNKNOWN: please, try again later. If error repeats, contact application support team.",
         2 => "SERVICE: service temporary unavailible. Please try again later",
@@ -29,8 +25,6 @@ class Payment {
         104 => "PARAM_SIGNATURE: invalid signature. Please contact application support team."
     );
 
-    // функция рассчитывает подпись для пришедшего запроса
-    // подробнее про алгоритм расчета подписи можно посмотреть в документации (http://apiok.ru/wiki/pages/viewpage.action?pageId=42476522)
     public static function calcSignature($request){
         $tmp = $request;
         unset($tmp["sig"]);
@@ -41,43 +35,22 @@ class Payment {
         }
         $resstr = $resstr.self::APP_SECRET_KEY;
         return md5($resstr);
-
-    }
-    // функция провкерки корректности платежа
-    public static function checkPayment($productCode, $price){
-        if (array_key_exists($productCode, self::$catalog) && (self::$catalog[$productCode] == $price)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
-    // функция возвращает ответ на сервер одноклассников
-    // о корректном платеже
     public static function returnPaymentOK(){
         $rootElement = 'callbacks_payment_response';
         $dom = self::createXMLWithRoot($rootElement);
         $root = $dom->getElementsByTagName($rootElement)->item(0);
-
-        // добавление текста "true" в тег <callbacks_payment_response> 
         $root->appendChild($dom->createTextNode('true'));
-
-        // генерация xml 
         $dom->formatOutput = true;
         $rezString = $dom->saveXML();
-
-        // установка заголовка
         header('Content-Type: application/xml');
-        // вывод xml
         print $rezString;
     }
-    // функция возвращает ответ на сервер одноклассников
-    // об ошибочном платеже и информацию лб ошибке
     public static function returnPaymentError($errorCode){
         $rootElement = 'ns2:error_response';
         $dom = self::createXMLWithRoot($rootElement);
         $root = $dom->getElementsByTagName($rootElement)->item(0);
-        // добавление кода ошибки и описания ошибки
         $el = $dom->createElement('error_code');
         $el->appendChild($dom->createTextNode($errorCode));
         $root->appendChild($el);
@@ -87,45 +60,82 @@ class Payment {
             $root->appendChild($el);
         }
 
-        // генерация xml 
         $dom->formatOutput = true;
         $rezString = $dom->saveXML();
-
-        // добавление необходимых заголовков
         header('Content-Type: application/xml');
-        // ВАЖНО: если не добавить этот заголовок, система может некорректно обработать ответ
         header('invocation-error:'.$errorCode);
-        // вывод xml
         print $rezString;
     }
 
-    // Рекомендуется хранить информацию обо всех транзакциях
-    public static function saveTransaction($uid, $product_code){
-        // тут может быть код для сохранения информации о транзакции
+    public static function checkCode($code, $amount){
+        $isGood = false;
         $mainDb = Application::getInstance()->getMainDb(3);
-        try {
-            $time = date("Y-m-d H:i:s");
-            $t = time();
-            $mainDb->query('INSERT INTO transactions SET uid='. $uid .', product_code='.$product_code.', time_try="'.$time.'", unitime='.$t);
-            $mainDb->query('INSERT INTO transaction_lost SET uid='. $uid .', product_code='.$product_code.', time_buy="'.$time.'", unitime='.$t);
-        } catch(Exception $e) {}
+        if ($code == 13) {
+            $result = $mainDb->query("SELECT new_cost FROM data_starter_pack");
+            $a = $result->fetch();
+            if ((int)$a['new_cost'] == $amount) {
+                $isGood = true;
+            }
+        } else if ($code >= 100000) {
+            $code = $code - 100000;
+            $result = $mainDb->query("SELECT DISTINCT new_cost FROM data_sale_pack WHERE id =".$code);
+            $a = $result->fetchAll();
+            if (!empty($a)) {
+                foreach ($a as $key => $r) {
+                    if ((int)$r['new_cost'] == $amount) {
+                        $isGood = true;
+                        break;
+                    }
+                }
+            }
+        } else {
+            $result = $mainDb->query("SELECT cost_for_real FROM data_buy_money WHERE id=".$code);
+            $a = $result->fetchAll();
+            if (!empty($a)) {
+                foreach ($a as $key => $r) {
+                    if ((int)$r['cost_for_real'] == $amount) {
+                        $isGood = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return $isGood;
     }
 
-    public static function saveErrorTransaction($uid, $errorNumber, $product){
+    public static function saveTransactionInit($uid, $code, $amount, $time, $req, $unixtime){
         $mainDb = Application::getInstance()->getMainDb(3);
         try {
-            $time = date("Y-m-d H:i:s");
-            if ($uid == '') $uid = -1;
-            $mainDb->query('INSERT INTO trans_error SET user_id='.$uid.', error_n='.$errorNumber.', product='.$product.', time_try="'.$time.'"');
+            $mainDb->query('INSERT INTO transaction_lost SET uid="'.$uid.'", product_code='.$code.', amount='.$amount.', time_try="'.$time.'", request_id="'.$req.'", unixtime='.$unixtime);
         } catch(Exception $e) {
-            $mainDb->query('INSERT INTO trans_error SET user_id=-5, error_n=-5, product=-5, time_try="123 321"');
+            Payment::test($e->getMessage(), 401);
         }
     }
 
-    public static function test($n){
+    public static function saveTransaction($uid, $code, $amount, $time, $req, $unixtime){
         $mainDb = Application::getInstance()->getMainDb(3);
-        $time = date("Y-m-d H:i:s");
-        $mainDb->query('INSERT INTO trans_error SET user_id=0, error_n='.$n.', product=0, time_try="'.$time.'"');
+        try {
+            $mainDb->query('INSERT INTO transactions SET uid="'.$uid.'", product_code='.$code.', amount='.$amount.', time_try="'.$time.'", request_id="'.$req.'", unixtime='.$unixtime.', getted=0');
+            $mainDb->query('DELETE FROM transaction_lost WHERE request_id="'.$req.'"');
+        } catch(Exception $e) {
+            Payment::test($e->getMessage(), 402);
+        }
+    }
+
+    public static function saveErrorTransaction($uid, $code, $amount, $time, $req, $error, $unixtime){
+        $mainDb = Application::getInstance()->getMainDb(3);
+        if ($uid == '') $uid = -1;
+        try {
+            $mainDb->query('INSERT INTO trans_error SET uid="'.$uid.'", product_code='.$code.', amount='.$amount.', time_try="'.$time.'", request_id="'.$req.'", error='.$error.', unixtime='.$unixtime);
+            $mainDb->query('DELETE FROM transaction_lost WHERE request_id="'.$req.'"');
+        } catch(Exception $e) {
+            Payment::test($e->getMessage(), 403);
+        }
+    }
+
+    public static function test($t, $step){
+        $mainDb = Application::getInstance()->getMainDb(3);
+        $mainDb->query('INSERT INTO test SET info="'.$t.'", step='.$step);
     }
 
     // функция создает объект DomDocument и доб авляет в него в качестве корневого тега $root
@@ -141,78 +151,38 @@ class Payment {
     }
 }
 
-/*
-* Обработка платежа начинается отсюда
-*/
-
-
+/*  Обработка платежа начинается отсюда */
 if (array_key_exists("product_code", $_GET) && array_key_exists("amount", $_GET) && array_key_exists("sig", $_GET)){
-    $mainDb = Application::getInstance()->getMainDb(3);
-    //foreach($_GET as $key => $value) {
-    //    $result22 = $mainDb->query('INSERT INTO test SET info='.$key.', step=1000');
-    //    $result22 = $mainDb->query('INSERT INTO test SET info='.$value.', step=11');
-    //}
-    $isGood = false;
     $code = (int)$_GET["product_code"];
-    if ($code == 13) {
-        $result = $mainDb->query("SELECT new_cost FROM data_starter_pack");
-        $a = $result->fetch();
-        if ((int)$a['new_cost'] == (int)$_GET['amount']) {
-            $isGood = true;
-        }
-    } else if ($code >= 100000) {
-        $code = $code - 100000;
-        $result = $mainDb->query("SELECT DISTINCT new_cost FROM data_sale_pack WHERE id =".$code);
-        $a = $result->fetchAll();
-        if (!empty($a)) {
-            foreach ($a as $key => $r) {
-                if ((int)$r['new_cost'] == (int)$_GET['amount']) {
-                    $isGood = true;
-                    break;
-                }
-            }
-        }
-    } else {
-        $result = $mainDb->query("SELECT cost_for_real FROM data_buy_money WHERE id=".$code);
-        $a = $result->fetchAll();
-        if (!empty($a)) {
-            foreach ($a as $key => $r) {
-                if ((int)$r['cost_for_real'] == (int)$_GET['amount']) {
-                    $isGood = true;
-                    break;
-                }
-            }
-        }
-    }
-
-//    $c = Payment::fillCatalog();
-//    if (Payment::checkPayment($_GET["product_code"], $_GET["amount"])) {
-
+    $amount = (int)$_GET["amount"];
+    $time = date("Y-m-d H:i:s");
+    $unixtime = time();
+    $uid = $_GET["uid"];
+    $req = $uid.'.'.$unixtime;
+    Payment::saveTransactionInit($uid, $code, $amount, $time, $req, $unixtime);
+    $isGood = Payment::checkCode($code, $amount);
     if ($isGood) {
-        //if ($_GET["sig"] == Payment::calcSignature($_GET)) {
-            Payment::saveTransaction($_GET["uid"], $_GET["product_code"]);
+        if ($_GET["sig"] == Payment::calcSignature($_GET)) {
+            Payment::saveTransaction($uid, $code, $amount, $time, $req, $unixtime);
             Payment::returnPaymentOK();
-//        } else {
-//            $result22 = $mainDb->query('INSERT INTO test SET info= "--", step=13');
-//            // здесь можно что-нибудь сделать, если подпись неверная
-//            Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_PARAM_SIGNATURE, $_GET["product_code"]);
-//            Payment::returnPaymentError(Payment::ERROR_TYPE_PARAM_SIGNATURE);
-//        }
+        } else {
+            Payment::saveErrorTransaction($uid, $code, $amount, $time, $req, Payment::ERROR_TYPE_PARAM_SIGNATURE, $unixtime);
+            Payment::returnPaymentError(Payment::ERROR_TYPE_PARAM_SIGNATURE);
+        }
     } else {
-        // здесь можно что-нибудь сделать, если информация о покупке некорректна
-        Payment::saveErrorTransaction($_GET["uid"], 4, $_GET["product_code"]);
+        Payment::saveErrorTransaction($uid, $code, $amount, $time, $req, Payment::ERROR_CHECK_CODE, $unixtime);
         Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
     }
 } else {
-    // здесь можно что-нибудь сделать, если информация о покупке или подпись отсутствуют в запросе
-    $code = '';
-    if (array_key_exists("product_code", $_GET)) $code = $code.'9';
-        else  $code = $code.'6';
-    if (array_key_exists("amount", $_GET)) $code = $code.'9';
-        else  $code = $code.'6';
-    if (array_key_exists("sig", $_GET)) $code = $code.'9';
-        else  $code = $code.'6';
-    Payment::saveErrorTransaction($_GET["uid"], Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $code);
+    $code = 0;
+    $unixtime = time();
+    if (array_key_exists("product_code", $_GET)) $code = $code + 10;
+        else  $code = $code + 5;
+    if (array_key_exists("amount", $_GET)) $code = $code + 100;
+        else  $code = $code + 50;
+    if (array_key_exists("sig", $_GET)) $code = $code + 1000;
+        else  $code = $code + 500;
+    Payment::saveErrorTransaction('-', $code, 0, date("Y-m-d H:i:s"), '-', Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT, $unixtime);
     Payment::returnPaymentError(Payment::ERROR_TYPE_CALLBACK_INVALID_PYMENT);
 }
 
