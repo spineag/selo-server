@@ -8,7 +8,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
     $channelId = (int)$_POST['channelId'];
 
     if ($app->checkSessionKey($_POST['userId'], $_POST['sessionKey'], $channelId)) {
-        $m = md5($_POST['userId'].$_POST['recipeDbId'].$_POST['leftTime'].$_POST['buildDbId'].$app->md5Secret());
+        $m = md5($_POST['userId'].$_POST['id'].$_POST['leftTime'].$_POST['buildDbId'].$app->md5Secret());
         if ($m != $_POST['hash']) {
             $json_data['id'] = 6;
             $json_data['status'] = 's385';
@@ -19,7 +19,7 @@ if (isset($_POST['userId']) && !empty($_POST['userId'])) {
             $shardDb = $app->getShardDb($userId, $channelId);
             try {
                 $m = '';
-                $result = $shardDb->query("DELETE FROM user_recipe_fabrica WHERE user_id =".$userId . " AND user_db_building_id =" . $_POST['buildDbId'] . " AND delay_time =" .$_POST['leftTime']);
+                $result = $shardDb->query("DELETE FROM user_recipe_fabrica WHERE id =".(int)$_POST['id']);
                 if ($result) {
                     $result = $shardDb->query("SELECT * FROM user_recipe_fabrica WHERE user_id =".$userId . " AND user_db_building_id =" . $_POST['buildDbId']);
                     $arr = $result->fetchAll();
